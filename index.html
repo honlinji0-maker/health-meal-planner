@@ -3,10 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="健康配餐、AI 营养分析、拍照识别、饮品控糖、健康日历和连续打卡的一体化网页工具。"
+    />
+    <meta name="theme-color" content="#2f7d57" />
     <title>每日健康配餐台</title>
+    <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <a class="skip-link" href="#day-menu">跳到主要内容</a>
+    <div id="welcomeScreen" class="welcome-screen" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+      <div class="welcome-card">
+        <span class="welcome-mark" aria-hidden="true"></span>
+        <p class="eyebrow">Welcome to Health OS</p>
+        <h1 id="welcomeTitle">今天，从一顿更清楚的饭开始</h1>
+        <p>生成、分析、记录、进步。</p>
+        <div class="welcome-preview" aria-label="功能预览">
+          <span>AI 营养分析</span>
+          <span>健康日历</span>
+          <span>连续打卡</span>
+          <span id="welcomeRecipeCount">菜谱池</span>
+        </div>
+        <button id="enterAppBtn" class="welcome-btn" type="button">进入健康配餐台</button>
+      </div>
+    </div>
+    <div id="pageTransition" class="page-transition" aria-hidden="true"></div>
     <button id="menuToggle" class="menu-toggle" type="button" aria-label="打开功能目录" aria-expanded="false">
       <span></span>
       <span></span>
@@ -27,7 +50,7 @@
       </a>
       <a href="#health-rank" class="side-nav-link">
         <span class="nav-icon icon-medal"></span>
-        <div><strong>健康奖章</strong><small>S / A / B / C 等级</small></div>
+        <div><strong>健康奖章</strong><small>S+ 到 D 细分等级</small></div>
       </a>
       <a href="#goals" class="side-nav-link">
         <span class="nav-icon icon-target"></span>
@@ -55,7 +78,7 @@
       </a>
       <a href="#photo-lab" class="side-nav-link">
         <span class="nav-icon icon-photo"></span>
-        <div><strong>拍照识别</strong><small>上传预览 / 下一步接 AI</small></div>
+        <div><strong>拍照识别</strong><small>拍照 / 条码 / 联网营养</small></div>
       </a>
       <a href="#data-source" class="side-nav-link">
         <span class="nav-icon icon-data"></span>
@@ -67,7 +90,7 @@
         <div class="hero-copy">
           <p class="eyebrow">Health-first meal composer</p>
           <h1>每日健康配餐台</h1>
-          <p class="lead">按减脂、增肌、塑型三种目标生成三餐，也可以用现有食材按克数组合成一道新菜。</p>
+          <p class="lead">少一点负担，多一点清楚。</p>
           <div class="hero-actions">
             <a href="#day-menu" class="hero-primary">生成今日三餐</a>
             <a href="#ai-assistant" class="hero-secondary">分析今天吃了什么</a>
@@ -75,13 +98,15 @@
           <div class="hero-metrics" aria-label="产品能力概览">
             <div><strong id="heroRecipeCount">285</strong><span>道菜谱池</span></div>
             <div><strong id="heroIngredientCount">77</strong><span>种常见食材</span></div>
-            <div><strong>S-A-B-C</strong><span>健康等级</span></div>
+            <div><strong>S+ 到 D</strong><span>健康等级</span></div>
           </div>
         </div>
         <figure class="food-photo" aria-label="健康餐盘照片">
           <img
             src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=900&q=80"
             alt="一份包含蔬菜、鸡蛋和谷物的健康餐盘"
+            loading="eager"
+            decoding="async"
           />
           <figcaption>
             <strong>Today Balance</strong>
@@ -110,21 +135,21 @@
           <div class="section-heading">
             <div>
               <p class="eyebrow">AI 健康助手</p>
-              <h2 id="ai-title">输入今天吃了什么，自动分析营养风险</h2>
+              <h2 id="ai-title">饮食分析 <button class="info-dot" type="button" aria-label="饮食分析说明" data-tip="输入食物和数量后，会估算热量、糖分、蛋白质、脂肪和钠，并给出替代建议。">!</button></h2>
             </div>
-            <button id="demoAnalysisBtn" class="ghost-btn" type="button">示例：可乐 + 炸鸡 + 汉堡</button>
+            <button id="demoAnalysisBtn" class="ghost-btn" type="button">示例：牛排 + 米饭 + 西兰花</button>
           </div>
 
           <div class="ai-grid">
             <div class="ai-input-panel">
               <label for="foodLogInput">今日饮食记录</label>
-              <textarea id="foodLogInput" rows="7" placeholder="例：&#10;可乐 1罐&#10;炸鸡 2块&#10;汉堡 1个"></textarea>
+              <textarea id="foodLogInput" rows="7" placeholder="例：&#10;牛排 180g&#10;米饭 150g&#10;西兰花 150g"></textarea>
               <div class="analysis-actions">
                 <button id="analyzeFoodBtn" class="primary-btn" type="button">开始 AI 分析</button>
                 <button id="clearAnalysisBtn" class="ghost-btn danger" type="button">清空分析</button>
               </div>
               <div class="analysis-tips">
-                <span>支持：可乐、奶茶、炸鸡、汉堡、薯条、披萨、泡面、鸡胸肉、米饭等常见食物</span>
+                <span>支持：牛排、牛肉、鸡蛋、米饭、西兰花、虾仁、三文鱼、豆腐、可乐、奶茶等常见食物</span>
                 <span>可写数量：2块、1杯、500ml、150g</span>
               </div>
             </div>
@@ -148,7 +173,7 @@
           <div class="section-heading">
             <div>
               <p class="eyebrow">目标板块</p>
-              <h2 id="goal-title">选择今天的营养方向</h2>
+              <h2 id="goal-title">营养目标 <button class="info-dot" type="button" aria-label="营养目标说明" data-tip="减脂、增肌、塑型会使用不同热量和营养比例，影响随机三餐与一周菜谱。">!</button></h2>
             </div>
             <div class="goal-switch" role="tablist" aria-label="健康目标">
               <button class="goal-btn active" data-goal="fatLoss" role="tab" aria-selected="true">减脂</button>
@@ -164,7 +189,7 @@
             <div class="section-heading compact">
               <div>
                 <p class="eyebrow">一键菜单</p>
-                <h2 id="plan-title">早餐、中餐、晚餐</h2>
+                <h2 id="plan-title">今日三餐 <button class="info-dot" type="button" aria-label="今日三餐说明" data-tip="点击生成后，会按当前目标随机搭配早餐、中餐和晚餐，并计算总热量与营养。">!</button></h2>
               </div>
               <button id="generateDayBtn" class="primary-btn" type="button">生成健康三餐</button>
             </div>
@@ -181,7 +206,6 @@
               <span class="camera-mark" aria-hidden="true"></span>
               <div>
                 <strong>摄像头识别接口预留</strong>
-                <p>后续可接入拍照识别食材、估算份量与热量，本版先确保克数录入与菜谱逻辑稳定。</p>
               </div>
             </div>
           </aside>
@@ -191,7 +215,7 @@
           <div class="section-heading">
             <div>
               <p class="eyebrow">AI 一周菜谱</p>
-              <h2 id="weekly-title">按目标、预算和生活节奏生成 7 天菜单</h2>
+              <h2 id="weekly-title">一周菜谱 <button class="info-dot" type="button" aria-label="一周菜谱说明" data-tip="选择人群和预算后，会生成 7 天三餐，并粗略估算食材成本。">!</button></h2>
             </div>
             <button id="generateWeekBtn" class="primary-btn" type="button">生成一周计划</button>
           </div>
@@ -207,7 +231,7 @@
             <label for="weeklyBudget">每日预算上限
               <input id="weeklyBudget" type="number" min="5" max="80" step="1" value="12" />
             </label>
-            <div class="weekly-note">预算为粗略食材成本估算，适合先比较方案，不等同于超市实时价格。</div>
+            <div class="weekly-note">预算为估算值。</div>
           </div>
           <div id="weeklyPlan" class="weekly-plan"></div>
         </section>
@@ -216,7 +240,7 @@
           <div class="section-heading">
             <div>
               <p class="eyebrow">健康日历</p>
-              <h2 id="calendar-title">记录每天吃了什么、运动了什么、消耗了多少</h2>
+              <h2 id="calendar-title">健康日历 <button class="info-dot" type="button" aria-label="健康日历说明" data-tip="记录早餐、中餐、晚餐和运动。运动消耗会按类型与时间自动估算，并进入段位统计。">!</button></h2>
             </div>
             <button id="checkInBtn" class="primary-btn" type="button">今日打卡</button>
           </div>
@@ -237,14 +261,36 @@
               <label for="calendarDate">日期
                 <input id="calendarDate" type="date" />
               </label>
-              <label for="calendarMeals">当天吃了什么
-                <textarea id="calendarMeals" rows="4" placeholder="例：早餐燕麦酸奶；午餐鸡胸糙米；晚餐鱼肉蔬菜汤"></textarea>
+              <div class="meal-log-grid">
+                <label for="calendarBreakfast">早餐吃了什么
+                  <textarea id="calendarBreakfast" rows="2" placeholder="例：燕麦 40g + 希腊酸奶 150g + 蓝莓"></textarea>
+                </label>
+                <label for="calendarLunch">中餐吃了什么
+                  <textarea id="calendarLunch" rows="2" placeholder="例：鸡胸肉 150g + 糙米饭 120g + 西兰花"></textarea>
+                </label>
+                <label for="calendarDinner">晚餐吃了什么
+                  <textarea id="calendarDinner" rows="2" placeholder="例：清蒸鱼 160g + 蔬菜汤 + 红薯"></textarea>
+                </label>
+              </div>
+              <div class="exercise-grid">
+                <label for="calendarExerciseType">运动类型
+                  <select id="calendarExerciseType">
+                    <option value="aerobic">有氧运动</option>
+                    <option value="anaerobic">无氧力量</option>
+                    <option value="mixed">有氧 + 无氧</option>
+                    <option value="recovery">恢复拉伸</option>
+                  </select>
+                </label>
+                <label for="calendarExerciseMinutes">运动时间 / 分钟
+                  <input id="calendarExerciseMinutes" type="number" min="0" max="300" step="5" value="40" />
+                </label>
+              </div>
+              <label for="calendarExercise">运动内容
+                <input id="calendarExercise" type="text" placeholder="例：跑步机、椭圆机、深蹲、卧推、核心训练" />
               </label>
-              <label for="calendarExercise">当天运动
-                <input id="calendarExercise" type="text" placeholder="例：快走 40 分钟 + 深蹲训练" />
-              </label>
-              <label for="calendarBurned">运动消耗 kcal
-                <input id="calendarBurned" type="number" min="0" step="10" value="260" />
+              <div id="burnEstimate" class="burn-estimate"></div>
+              <label class="visually-hidden" for="calendarBurned">AI 估算运动消耗 kcal
+                <input id="calendarBurned" type="number" min="0" step="10" value="260" readonly />
               </label>
               <label for="calendarPlan">运动计划
                 <select id="calendarPlan">
@@ -265,7 +311,7 @@
           <div class="section-heading">
             <div>
               <p class="eyebrow">高糖饮品雷达</p>
-              <h2 id="drink-title">热门饮料的方糖换算</h2>
+              <h2 id="drink-title">方糖雷达 <button class="info-dot" type="button" aria-label="方糖雷达说明" data-tip="把饮料含糖量换算成方糖数量，让高糖饮品的影响更直观。">!</button></h2>
             </div>
             <div class="drink-search">
               <label for="drinkSearch">搜索品牌</label>
@@ -280,19 +326,42 @@
         <section id="photo-lab" class="photo-section" aria-labelledby="photo-title">
           <div class="section-heading">
             <div>
-              <p class="eyebrow">拍照识别预留</p>
-              <h2 id="photo-title">上传餐食照片，先做记录预览，后续接入视觉识别</h2>
+              <p class="eyebrow">AI 视觉识别</p>
+              <h2 id="photo-title">拍照识别 <button class="info-dot" type="button" aria-label="拍照识别说明" data-tip="手机可直接拍照。系统会先识别文件名、条码和补充描述；商品营养可联网查询，菜品会进入同一套 AI 营养分析。">!</button></h2>
             </div>
-            <span class="status-chip">下一阶段 AI Vision</span>
+            <span class="status-chip">Vision Beta + 联网营养</span>
           </div>
           <div class="photo-grid">
             <label class="photo-drop" for="photoInput">
-              <input id="photoInput" type="file" accept="image/*" />
-              <strong>选择一张食物照片</strong>
-              <span>现在会生成预览和估算提示；接入模型后可自动识别食物、克数和热量。</span>
+              <input id="photoInput" type="file" accept="image/*" capture="environment" />
+              <strong>拍照或上传食物</strong>
+              <span>支持餐盘、饮料、包装条码。识别后可直接分析。</span>
             </label>
             <div id="photoPreview" class="photo-preview">
               <div class="empty-state">还没有上传照片。</div>
+            </div>
+          </div>
+          <div class="vision-console">
+            <div class="vision-input-row">
+              <label for="photoHintInput">补充识别线索</label>
+              <input id="photoHintInput" type="text" placeholder="如：牛排180g 米饭150g 无糖可乐1罐" />
+              <button id="runPhotoVisionBtn" class="primary-btn" type="button">AI 识别并分析</button>
+            </div>
+            <div class="vision-input-row">
+              <label for="onlineFoodSearchInput">联网搜商品/条码</label>
+              <input id="onlineFoodSearchInput" type="search" placeholder="如：Coca Cola Zero 或条形码 5449000000996" />
+              <button id="onlineFoodSearchBtn" class="ghost-btn" type="button">联网查询</button>
+            </div>
+            <div class="photo-save-row">
+              <select id="photoMealTarget" aria-label="写入日历餐次">
+                <option value="breakfast">写入早餐</option>
+                <option value="lunch">写入中餐</option>
+                <option value="dinner">写入晚餐</option>
+              </select>
+              <button id="savePhotoMealBtn" class="ghost-btn" type="button">记录到今日日历</button>
+            </div>
+            <div id="photoVisionResult" class="photo-vision-result">
+              <div class="empty-state">上传照片或输入线索后，这里会显示识别结果。</div>
             </div>
           </div>
         </section>
@@ -301,7 +370,7 @@
           <div class="section-heading">
             <div>
               <p class="eyebrow">自选食材</p>
-              <h2 id="builder-title">用身边现有食材生成一道健康菜</h2>
+              <h2 id="builder-title">冰箱搭配 <button class="info-dot" type="button" aria-label="冰箱搭配说明" data-tip="输入现有食材和克数，系统会组合成一道健康菜，并给出步骤和营养估算。">!</button></h2>
             </div>
             <div class="builder-actions">
               <button id="sampleBasketBtn" class="ghost-btn" type="button">装入示例</button>
@@ -344,11 +413,11 @@
         <section id="data-source" class="source-section" aria-labelledby="source-title">
           <div>
             <p class="eyebrow">数据依据</p>
-            <h2 id="source-title">计算口径</h2>
+            <h2 id="source-title">计算口径 <button class="info-dot" type="button" aria-label="计算口径说明" data-tip="食材营养以每 100g 可食部估算；品牌差异、熟重/生重、调味和烹饪损耗都会影响实际结果。">!</button></h2>
           </div>
           <div class="source-copy">
             <p>本版食材按每 100g 可食部的能量、蛋白质、碳水、脂肪和膳食纤维估算；熟重、干重、生重会在食材状态里标注。烹调损耗、品牌差异和调味盐糖会影响实际结果。</p>
-            <p>数据口径参考 USDA FoodData Central；健康搭配原则参考 CDC 对全谷物、蔬果、优质蛋白、低添加糖和控钠的公开建议。</p>
+            <p>数据口径参考 USDA FoodData Central；联网商品查询接入 Open Food Facts 公开食品数据库；健康搭配原则参考 CDC 对全谷物、蔬果、优质蛋白、低添加糖和控钠的公开建议。</p>
             <p>AI 健康助手为本地估算引擎，适合日常饮食提醒，不替代医生、营养师或食品包装上的正式营养标签。</p>
           </div>
         </section>

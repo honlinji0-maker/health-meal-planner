@@ -1,135 +1,240 @@
 <!doctype html>
 <html lang="zh-CN">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>糯糯的双人小房间</title>
-    <link rel="stylesheet" href="/styles.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>每日健康配餐台</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="app-shell">
-      <section class="room-panel" aria-label="双人宠物房间">
-        <header class="topbar">
-          <div>
-            <p class="eyebrow">两人联机养成原型</p>
-            <h1>糯糯的双人小房间</h1>
-          </div>
-          <form class="join-card" id="joinForm">
-            <label>
-              <span>昵称</span>
-              <input id="playerName" name="playerName" maxlength="18" autocomplete="nickname" />
-            </label>
-            <label>
-              <span>房间码</span>
-              <input id="roomCode" name="roomCode" maxlength="24" />
-            </label>
-            <button class="primary-button" type="submit">进入</button>
-          </form>
-        </header>
-
-        <div class="connection-row">
-          <span class="status-pill" id="connectionStatus">未连接</span>
-          <span class="room-pill" id="roomLabel">房间：COZY</span>
-          <button class="ghost-button" id="copyInvite" type="button">复制邀请链接</button>
+    <button id="menuToggle" class="menu-toggle" type="button" aria-label="打开功能目录" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div id="navBackdrop" class="nav-backdrop" hidden></div>
+    <nav id="sideNav" class="side-nav" aria-label="功能目录" aria-hidden="true">
+      <div class="side-nav-head">
+        <span class="nav-orb"></span>
+        <div>
+          <strong>健康工具台</strong>
+          <small>Health OS</small>
         </div>
+      </div>
+      <a href="#ai-assistant" class="side-nav-link">
+        <span class="nav-icon icon-ai"></span>
+        <div><strong>AI 健康助手</strong><small>分析今天吃了什么</small></div>
+      </a>
+      <a href="#health-rank" class="side-nav-link">
+        <span class="nav-icon icon-medal"></span>
+        <div><strong>健康奖章</strong><small>S / A / B / C 等级</small></div>
+      </a>
+      <a href="#goals" class="side-nav-link">
+        <span class="nav-icon icon-target"></span>
+        <div><strong>营养目标</strong><small>减脂 / 增肌 / 塑型</small></div>
+      </a>
+      <a href="#day-menu" class="side-nav-link">
+        <span class="nav-icon icon-menu"></span>
+        <div><strong>随机三餐</strong><small>285 道菜谱池</small></div>
+      </a>
+      <a href="#sugar-radar" class="side-nav-link">
+        <span class="nav-icon icon-sugar"></span>
+        <div><strong>高糖饮品</strong><small>方糖可视化</small></div>
+      </a>
+      <a href="#food-builder" class="side-nav-link">
+        <span class="nav-icon icon-fridge"></span>
+        <div><strong>冰箱搭配</strong><small>按现有食材生成</small></div>
+      </a>
+      <a href="#data-source" class="side-nav-link">
+        <span class="nav-icon icon-data"></span>
+        <div><strong>数据口径</strong><small>估算依据与说明</small></div>
+      </a>
+    </nav>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Health-first meal composer</p>
+          <h1>每日健康配餐台</h1>
+          <p class="lead">按减脂、增肌、塑型三种目标生成三餐，也可以用现有食材按克数组合成一道新菜。</p>
+        </div>
+        <figure class="food-photo" aria-label="健康餐盘照片">
+          <img
+            src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=900&q=80"
+            alt="一份包含蔬菜、鸡蛋和谷物的健康餐盘"
+          />
+        </figure>
+      </header>
 
-        <div class="pet-stage">
-          <div class="window">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-          <div class="shelf">
-            <div class="plant"></div>
-            <div class="books"></div>
-          </div>
-          <div class="bed">
-            <div class="pillow"></div>
-          </div>
-          <div class="toy-ball"></div>
-          <div class="desk"></div>
-          <div class="speech" id="speechText">我在等你们一起回家。</div>
-
-          <div class="cat-wrap" aria-label="圆圆猫糯糯">
-            <div class="cat" id="cat">
-              <div class="tail"></div>
-              <div class="ear ear-left"></div>
-              <div class="ear ear-right"></div>
-              <div class="hat" id="catHat"></div>
-              <div class="face">
-                <div class="eye eye-left"></div>
-                <div class="eye eye-right"></div>
-                <div class="cheek cheek-left"></div>
-                <div class="cheek cheek-right"></div>
-                <div class="nose"></div>
-                <div class="mouth"></div>
-                <div class="whisker whisker-left one"></div>
-                <div class="whisker whisker-left two"></div>
-                <div class="whisker whisker-right one"></div>
-                <div class="whisker whisker-right two"></div>
-              </div>
-              <div class="collar" id="catCollar"></div>
-              <div class="paw paw-left"></div>
-              <div class="paw paw-right"></div>
-            </div>
+      <section id="health-rank" class="health-rank-banner" aria-labelledby="health-rank-title">
+        <div class="rank-medal-wrap">
+          <div id="topGradeMedal" class="rank-medal rank-a">
+            <span>AI</span>
+            <strong>A</strong>
           </div>
         </div>
+        <div class="rank-copy">
+          <p class="eyebrow">健康等级系统</p>
+          <h2 id="health-rank-title">今日健康奖章</h2>
+          <p id="topGradeMessage">生成三餐或完成 AI 分析后，会自动更新你的健康等级。</p>
+        </div>
+        <div id="topGradeBars" class="rank-bars"></div>
       </section>
 
-      <aside class="side-panel" aria-label="宠物状态和操作">
-        <section class="pet-card">
-          <div class="pet-title">
+      <main>
+        <section id="ai-assistant" class="ai-section" aria-labelledby="ai-title">
+          <div class="section-heading">
             <div>
-              <p class="eyebrow">成长阶段</p>
-              <h2 id="petName">糯糯 · 幼年</h2>
+              <p class="eyebrow">AI 健康助手</p>
+              <h2 id="ai-title">输入今天吃了什么，自动分析营养风险</h2>
             </div>
-            <div class="coin-badge"><span id="coins">80</span> 金币</div>
+            <button id="demoAnalysisBtn" class="ghost-btn" type="button">示例：可乐 + 炸鸡 + 汉堡</button>
           </div>
 
-          <div class="players" id="players"></div>
+          <div class="ai-grid">
+            <div class="ai-input-panel">
+              <label for="foodLogInput">今日饮食记录</label>
+              <textarea id="foodLogInput" rows="7" placeholder="例：&#10;可乐 1罐&#10;炸鸡 2块&#10;汉堡 1个"></textarea>
+              <div class="analysis-actions">
+                <button id="analyzeFoodBtn" class="primary-btn" type="button">开始 AI 分析</button>
+                <button id="clearAnalysisBtn" class="ghost-btn danger" type="button">清空分析</button>
+              </div>
+              <div class="analysis-tips">
+                <span>支持：可乐、奶茶、炸鸡、汉堡、薯条、披萨、泡面、鸡胸肉、米饭等常见食物</span>
+                <span>可写数量：2块、1杯、500ml、150g</span>
+              </div>
+            </div>
 
-          <div class="stats" id="stats"></div>
+            <div class="ai-result-panel">
+              <div id="analysisLevel" class="analysis-level empty">
+                <span>等待分析</span>
+                <strong>--</strong>
+                <p>输入饮食后会显示健康等级、营养估算和建议。</p>
+              </div>
+              <div id="analysisTotals" class="analysis-totals"></div>
+              <div id="analysisSugarCubes" class="analysis-sugar"></div>
+              <div id="analysisAdvice" class="assistant-advice"></div>
+              <div id="analysisFoodList" class="analysis-food-list"></div>
+            </div>
+          </div>
         </section>
 
-        <section class="action-section">
+        <section id="goals" class="goal-band" aria-labelledby="goal-title">
           <div class="section-heading">
-            <h3>喂食</h3>
-            <span>饥饿降下来，心情会变好</span>
+            <div>
+              <p class="eyebrow">目标板块</p>
+              <h2 id="goal-title">选择今天的营养方向</h2>
+            </div>
+            <div class="goal-switch" role="tablist" aria-label="健康目标">
+              <button class="goal-btn active" data-goal="fatLoss" role="tab" aria-selected="true">减脂</button>
+              <button class="goal-btn" data-goal="muscle" role="tab" aria-selected="false">增肌</button>
+              <button class="goal-btn" data-goal="shape" role="tab" aria-selected="false">塑型</button>
+            </div>
           </div>
-          <div class="food-grid" id="foodGrid"></div>
+          <div id="goalSummary" class="goal-summary"></div>
         </section>
 
-        <section class="action-section">
+        <section id="day-menu" class="planner-grid">
+          <div class="planner-main" aria-labelledby="plan-title">
+            <div class="section-heading compact">
+              <div>
+                <p class="eyebrow">一键菜单</p>
+                <h2 id="plan-title">早餐、中餐、晚餐</h2>
+              </div>
+              <button id="generateDayBtn" class="primary-btn" type="button">生成健康三餐</button>
+            </div>
+            <div id="recipeStats" class="recipe-stats"></div>
+            <div id="dayTotals" class="day-totals" aria-live="polite"></div>
+            <div id="mealCards" class="meal-grid"></div>
+          </div>
+
+          <aside class="insight-panel" aria-labelledby="insight-title">
+            <p class="eyebrow">营养校验</p>
+            <h2 id="insight-title">今日概览</h2>
+            <div id="macroMeters" class="macro-meters"></div>
+            <div class="camera-ready">
+              <span class="camera-mark" aria-hidden="true"></span>
+              <div>
+                <strong>摄像头识别接口预留</strong>
+                <p>后续可接入拍照识别食材、估算份量与热量，本版先确保克数录入与菜谱逻辑稳定。</p>
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <section id="sugar-radar" class="drink-section" aria-labelledby="drink-title">
           <div class="section-heading">
-            <h3>互动</h3>
-            <span>第一阶段先做陪伴循环</span>
+            <div>
+              <p class="eyebrow">高糖饮品雷达</p>
+              <h2 id="drink-title">热门饮料的方糖换算</h2>
+            </div>
+            <div class="drink-search">
+              <label for="drinkSearch">搜索品牌</label>
+              <input id="drinkSearch" type="search" placeholder="如：冰红茶、可乐、咖啡" />
+            </div>
           </div>
-          <div class="button-row">
-            <button data-action="play" class="action-button">玩毛线球</button>
-            <button data-action="cuddle" class="action-button">摸摸头</button>
-            <button data-action="sleep" class="action-button">小睡</button>
-          </div>
+          <div id="drinkStats" class="drink-stats"></div>
+          <div id="drinkFilters" class="drink-filters" aria-label="饮品分类"></div>
+          <div id="drinkCards" class="drink-grid"></div>
         </section>
 
-        <section class="action-section">
+        <section id="food-builder" class="builder-section" aria-labelledby="builder-title">
           <div class="section-heading">
-            <h3>换装</h3>
-            <span>买过的装扮会留在房间里</span>
+            <div>
+              <p class="eyebrow">自选食材</p>
+              <h2 id="builder-title">用身边现有食材生成一道健康菜</h2>
+            </div>
+            <div class="builder-actions">
+              <button id="sampleBasketBtn" class="ghost-btn" type="button">装入示例</button>
+              <button id="clearBasketBtn" class="ghost-btn danger" type="button">清空</button>
+            </div>
           </div>
-          <div class="dress-grid" id="dressGrid"></div>
+
+          <div class="builder-grid">
+            <div class="ingredient-browser">
+              <div class="search-row">
+                <label for="ingredientSearch">搜索食材</label>
+                <input id="ingredientSearch" type="search" placeholder="如：鸡胸肉、糙米、西兰花" />
+              </div>
+              <div id="ingredientStats" class="ingredient-stats"></div>
+              <div id="categoryFilters" class="category-filters" aria-label="食材分类"></div>
+              <div id="ingredientList" class="ingredient-list"></div>
+            </div>
+
+            <div class="basket-zone">
+              <div class="pantry-parser">
+                <label for="pantryInput">直接输入现有食材</label>
+                <textarea id="pantryInput" rows="4" placeholder="例：鸡胸肉 150g，西兰花 180g，糙米饭 120g，橄榄油 6g"></textarea>
+                <button id="parsePantryBtn" class="secondary-btn" type="button">按克数加入</button>
+                <div id="parseNotice" class="parse-notice" aria-live="polite"></div>
+              </div>
+
+              <div class="basket-table-wrap">
+                <div class="basket-head">
+                  <h3>当前组合</h3>
+                  <button id="composeDishBtn" class="primary-btn" type="button">生成这道菜</button>
+                </div>
+                <div id="basketTable" class="basket-table"></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="customDish" class="custom-dish" aria-live="polite"></div>
         </section>
 
-        <section class="memory-card">
-          <div class="section-heading">
-            <h3>小记忆</h3>
-            <span>后续会接 AI 长期记忆</span>
+        <section id="data-source" class="source-section" aria-labelledby="source-title">
+          <div>
+            <p class="eyebrow">数据依据</p>
+            <h2 id="source-title">计算口径</h2>
           </div>
-          <p id="memoryText">刚搬进两人小房间，正在熟悉新家。</p>
-          <div class="timeline" id="timeline"></div>
+          <div class="source-copy">
+            <p>本版食材按每 100g 可食部的能量、蛋白质、碳水、脂肪和膳食纤维估算；熟重、干重、生重会在食材状态里标注。烹调损耗、品牌差异和调味盐糖会影响实际结果。</p>
+            <p>数据口径参考 USDA FoodData Central；健康搭配原则参考 CDC 对全谷物、蔬果、优质蛋白、低添加糖和控钠的公开建议。</p>
+            <p>AI 健康助手为本地估算引擎，适合日常饮食提醒，不替代医生、营养师或食品包装上的正式营养标签。</p>
+          </div>
         </section>
-      </aside>
-    </main>
+      </main>
+    </div>
 
-    <script src="/app.js" type="module"></script>
+    <script src="app.js"></script>
   </body>
 </html>

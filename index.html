@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>糯糯的双人小房间</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="room-panel" aria-label="双人宠物房间">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">两人联机养成原型</p>
+            <h1>糯糯的双人小房间</h1>
+          </div>
+          <form class="join-card" id="joinForm">
+            <label>
+              <span>昵称</span>
+              <input id="playerName" name="playerName" maxlength="18" autocomplete="nickname" />
+            </label>
+            <label>
+              <span>房间码</span>
+              <input id="roomCode" name="roomCode" maxlength="24" />
+            </label>
+            <button class="primary-button" type="submit">进入</button>
+          </form>
+        </header>
+
+        <div class="connection-row">
+          <span class="status-pill" id="connectionStatus">未连接</span>
+          <span class="room-pill" id="roomLabel">房间：COZY</span>
+          <button class="ghost-button" id="copyInvite" type="button">复制邀请链接</button>
+        </div>
+
+        <div class="pet-stage">
+          <div class="window">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="shelf">
+            <div class="plant"></div>
+            <div class="books"></div>
+          </div>
+          <div class="bed">
+            <div class="pillow"></div>
+          </div>
+          <div class="toy-ball"></div>
+          <div class="desk"></div>
+          <div class="speech" id="speechText">我在等你们一起回家。</div>
+
+          <div class="cat-wrap" aria-label="圆圆猫糯糯">
+            <div class="cat" id="cat">
+              <div class="tail"></div>
+              <div class="ear ear-left"></div>
+              <div class="ear ear-right"></div>
+              <div class="hat" id="catHat"></div>
+              <div class="face">
+                <div class="eye eye-left"></div>
+                <div class="eye eye-right"></div>
+                <div class="cheek cheek-left"></div>
+                <div class="cheek cheek-right"></div>
+                <div class="nose"></div>
+                <div class="mouth"></div>
+                <div class="whisker whisker-left one"></div>
+                <div class="whisker whisker-left two"></div>
+                <div class="whisker whisker-right one"></div>
+                <div class="whisker whisker-right two"></div>
+              </div>
+              <div class="collar" id="catCollar"></div>
+              <div class="paw paw-left"></div>
+              <div class="paw paw-right"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="side-panel" aria-label="宠物状态和操作">
+        <section class="pet-card">
+          <div class="pet-title">
+            <div>
+              <p class="eyebrow">成长阶段</p>
+              <h2 id="petName">糯糯 · 幼年</h2>
+            </div>
+            <div class="coin-badge"><span id="coins">80</span> 金币</div>
+          </div>
+
+          <div class="players" id="players"></div>
+
+          <div class="stats" id="stats"></div>
+        </section>
+
+        <section class="action-section">
+          <div class="section-heading">
+            <h3>喂食</h3>
+            <span>饥饿降下来，心情会变好</span>
+          </div>
+          <div class="food-grid" id="foodGrid"></div>
+        </section>
+
+        <section class="action-section">
+          <div class="section-heading">
+            <h3>互动</h3>
+            <span>第一阶段先做陪伴循环</span>
+          </div>
+          <div class="button-row">
+            <button data-action="play" class="action-button">玩毛线球</button>
+            <button data-action="cuddle" class="action-button">摸摸头</button>
+            <button data-action="sleep" class="action-button">小睡</button>
+          </div>
+        </section>
+
+        <section class="action-section">
+          <div class="section-heading">
+            <h3>换装</h3>
+            <span>买过的装扮会留在房间里</span>
+          </div>
+          <div class="dress-grid" id="dressGrid"></div>
+        </section>
+
+        <section class="memory-card">
+          <div class="section-heading">
+            <h3>小记忆</h3>
+            <span>后续会接 AI 长期记忆</span>
+          </div>
+          <p id="memoryText">刚搬进两人小房间，正在熟悉新家。</p>
+          <div class="timeline" id="timeline"></div>
+        </section>
+      </aside>
+    </main>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

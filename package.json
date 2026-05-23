@@ -1,8 +1,8 @@
 {
   "name": "health-meal-planner",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
-  "description": "健康三餐、AI 营养分析、高糖饮品可视化和食材搭配网页。",
+  "description": "健康三餐、AI 营养分析、健康日历、打卡段位、高糖饮品可视化和食材搭配网页。",
   "scripts": {
     "start": "node preview-server.js",
     "check": "node --check app.js && node --check preview-server.js"

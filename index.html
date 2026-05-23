@@ -35,7 +35,15 @@
       </a>
       <a href="#day-menu" class="side-nav-link">
         <span class="nav-icon icon-menu"></span>
-        <div><strong>随机三餐</strong><small>285 道菜谱池</small></div>
+        <div><strong>随机三餐</strong><small><span id="navRecipeCount">菜谱池</span></small></div>
+      </a>
+      <a href="#weekly-planner" class="side-nav-link">
+        <span class="nav-icon icon-week"></span>
+        <div><strong>一周菜谱</strong><small>预算 / 学生党模式</small></div>
+      </a>
+      <a href="#health-calendar" class="side-nav-link">
+        <span class="nav-icon icon-calendar"></span>
+        <div><strong>健康日历</strong><small>饮食 / 运动 / 段位</small></div>
       </a>
       <a href="#sugar-radar" class="side-nav-link">
         <span class="nav-icon icon-sugar"></span>
@@ -44,6 +52,10 @@
       <a href="#food-builder" class="side-nav-link">
         <span class="nav-icon icon-fridge"></span>
         <div><strong>冰箱搭配</strong><small>按现有食材生成</small></div>
+      </a>
+      <a href="#photo-lab" class="side-nav-link">
+        <span class="nav-icon icon-photo"></span>
+        <div><strong>拍照识别</strong><small>上传预览 / 下一步接 AI</small></div>
       </a>
       <a href="#data-source" class="side-nav-link">
         <span class="nav-icon icon-data"></span>
@@ -61,8 +73,8 @@
             <a href="#ai-assistant" class="hero-secondary">分析今天吃了什么</a>
           </div>
           <div class="hero-metrics" aria-label="产品能力概览">
-            <div><strong>285</strong><span>道菜谱池</span></div>
-            <div><strong>77</strong><span>种常见食材</span></div>
+            <div><strong id="heroRecipeCount">285</strong><span>道菜谱池</span></div>
+            <div><strong id="heroIngredientCount">77</strong><span>种常见食材</span></div>
             <div><strong>S-A-B-C</strong><span>健康等级</span></div>
           </div>
         </div>
@@ -126,6 +138,7 @@
               <div id="analysisTotals" class="analysis-totals"></div>
               <div id="analysisSugarCubes" class="analysis-sugar"></div>
               <div id="analysisAdvice" class="assistant-advice"></div>
+              <div id="substitutionPanel" class="substitution-panel"></div>
               <div id="analysisFoodList" class="analysis-food-list"></div>
             </div>
           </div>
@@ -174,6 +187,80 @@
           </aside>
         </section>
 
+        <section id="weekly-planner" class="weekly-section" aria-labelledby="weekly-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">AI 一周菜谱</p>
+              <h2 id="weekly-title">按目标、预算和生活节奏生成 7 天菜单</h2>
+            </div>
+            <button id="generateWeekBtn" class="primary-btn" type="button">生成一周计划</button>
+          </div>
+          <div class="weekly-controls">
+            <label for="weeklyProfile">人群模式
+              <select id="weeklyProfile">
+                <option value="student">学生党 / 预算低</option>
+                <option value="training">训练日 / 高蛋白</option>
+                <option value="office">上班族 / 易备餐</option>
+                <option value="light">清爽控糖</option>
+              </select>
+            </label>
+            <label for="weeklyBudget">每日预算上限
+              <input id="weeklyBudget" type="number" min="5" max="80" step="1" value="12" />
+            </label>
+            <div class="weekly-note">预算为粗略食材成本估算，适合先比较方案，不等同于超市实时价格。</div>
+          </div>
+          <div id="weeklyPlan" class="weekly-plan"></div>
+        </section>
+
+        <section id="health-calendar" class="calendar-section" aria-labelledby="calendar-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">健康日历</p>
+              <h2 id="calendar-title">记录每天吃了什么、运动了什么、消耗了多少</h2>
+            </div>
+            <button id="checkInBtn" class="primary-btn" type="button">今日打卡</button>
+          </div>
+          <div class="calendar-dashboard">
+            <div id="rankPanel" class="rank-panel"></div>
+            <div id="streakPanel" class="streak-panel"></div>
+          </div>
+          <div class="calendar-layout">
+            <div>
+              <div class="calendar-toolbar">
+                <button id="prevMonthBtn" class="ghost-btn" type="button">上一月</button>
+                <strong id="calendarMonthLabel"></strong>
+                <button id="nextMonthBtn" class="ghost-btn" type="button">下一月</button>
+              </div>
+              <div id="calendarGrid" class="calendar-grid"></div>
+            </div>
+            <div class="daily-editor">
+              <label for="calendarDate">日期
+                <input id="calendarDate" type="date" />
+              </label>
+              <label for="calendarMeals">当天吃了什么
+                <textarea id="calendarMeals" rows="4" placeholder="例：早餐燕麦酸奶；午餐鸡胸糙米；晚餐鱼肉蔬菜汤"></textarea>
+              </label>
+              <label for="calendarExercise">当天运动
+                <input id="calendarExercise" type="text" placeholder="例：快走 40 分钟 + 深蹲训练" />
+              </label>
+              <label for="calendarBurned">运动消耗 kcal
+                <input id="calendarBurned" type="number" min="0" step="10" value="260" />
+              </label>
+              <label for="calendarPlan">运动计划
+                <select id="calendarPlan">
+                  <option value="轻量恢复">轻量恢复：快走 + 拉伸</option>
+                  <option value="燃脂训练">燃脂训练：有氧 + 核心</option>
+                  <option value="增肌训练">增肌训练：力量 + 蛋白补给</option>
+                  <option value="塑型训练">塑型训练：力量循环 + 灵活性</option>
+                </select>
+              </label>
+              <button id="saveDayLogBtn" class="secondary-btn" type="button">保存当天记录</button>
+              <div id="dayScorePanel" class="day-score-panel"></div>
+            </div>
+          </div>
+          <div id="badgeAnimation" class="badge-animation" aria-live="polite"></div>
+        </section>
+
         <section id="sugar-radar" class="drink-section" aria-labelledby="drink-title">
           <div class="section-heading">
             <div>
@@ -188,6 +275,26 @@
           <div id="drinkStats" class="drink-stats"></div>
           <div id="drinkFilters" class="drink-filters" aria-label="饮品分类"></div>
           <div id="drinkCards" class="drink-grid"></div>
+        </section>
+
+        <section id="photo-lab" class="photo-section" aria-labelledby="photo-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">拍照识别预留</p>
+              <h2 id="photo-title">上传餐食照片，先做记录预览，后续接入视觉识别</h2>
+            </div>
+            <span class="status-chip">下一阶段 AI Vision</span>
+          </div>
+          <div class="photo-grid">
+            <label class="photo-drop" for="photoInput">
+              <input id="photoInput" type="file" accept="image/*" />
+              <strong>选择一张食物照片</strong>
+              <span>现在会生成预览和估算提示；接入模型后可自动识别食物、克数和热量。</span>
+            </label>
+            <div id="photoPreview" class="photo-preview">
+              <div class="empty-state">还没有上传照片。</div>
+            </div>
+          </div>
         </section>
 
         <section id="food-builder" class="builder-section" aria-labelledby="builder-title">

@@ -118,7 +118,29 @@ const ingredients = [
   { id: "grapefruit", name: "西柚", category: "水果", state: "可食部", kcal: 42, protein: 0.8, carbs: 10.7, fat: 0.1, fiber: 1.6, defaultGram: 150, aliases: ["西柚", "葡萄柚"] },
   { id: "mango", name: "芒果", category: "水果", state: "可食部", kcal: 60, protein: 0.8, carbs: 15.0, fat: 0.4, fiber: 1.6, defaultGram: 100, aliases: ["芒果"] },
 
-  { id: "sesame_seeds", name: "芝麻", category: "健康脂肪", state: "干重", kcal: 573, protein: 17.7, carbs: 23.5, fat: 49.7, fiber: 11.8, defaultGram: 8, aliases: ["芝麻", "白芝麻", "黑芝麻"] }
+  { id: "sesame_seeds", name: "芝麻", category: "健康脂肪", state: "干重", kcal: 573, protein: 17.7, carbs: 23.5, fat: 49.7, fiber: 11.8, defaultGram: 8, aliases: ["芝麻", "白芝麻", "黑芝麻"] },
+  { id: "rye_bread", name: "黑麦面包", category: "全谷主食", state: "可食部", kcal: 259, protein: 8.5, carbs: 48.3, fat: 3.3, fiber: 5.8, defaultGram: 70, aliases: ["黑麦面包", "黑麥面包", "rye bread"] },
+  { id: "udon", name: "乌冬面", category: "主食", state: "熟重", kcal: 127, protein: 3.3, carbs: 25.0, fat: 0.3, fiber: 1.0, defaultGram: 180, aliases: ["乌冬面", "烏冬", "udon"] },
+  { id: "rice_noodles", name: "米粉", category: "主食", state: "熟重", kcal: 109, protein: 1.8, carbs: 24.9, fat: 0.2, fiber: 0.9, defaultGram: 180, aliases: ["米粉", "河粉", "rice noodles"] },
+  { id: "tilapia", name: "罗非鱼", category: "肉禽鱼蛋", state: "熟重", kcal: 128, protein: 26.2, carbs: 0, fat: 2.7, fiber: 0, defaultGram: 150, aliases: ["罗非鱼", "羅非魚", "tilapia"] },
+  { id: "lean_lamb", name: "瘦羊肉", category: "肉禽鱼蛋", state: "熟重", kcal: 206, protein: 28.0, carbs: 0, fat: 9.0, fiber: 0, defaultGram: 120, aliases: ["瘦羊肉", "羊肉"] },
+  { id: "duck_breast_skinless", name: "去皮鸭胸", category: "肉禽鱼蛋", state: "熟重", kcal: 201, protein: 24.5, carbs: 0, fat: 10.5, fiber: 0, defaultGram: 120, aliases: ["去皮鸭胸", "鸭胸", "鴨胸"] },
+  { id: "quail_egg", name: "鹌鹑蛋", category: "肉禽鱼蛋", state: "可食部", kcal: 158, protein: 13.1, carbs: 0.4, fat: 11.1, fiber: 0, defaultGram: 60, aliases: ["鹌鹑蛋", "鵪鶉蛋"] },
+  { id: "natto", name: "纳豆", category: "豆乳蛋白", state: "可食部", kcal: 212, protein: 18.0, carbs: 14.0, fat: 11.0, fiber: 5.4, defaultGram: 80, aliases: ["纳豆", "納豆", "natto"] },
+  { id: "soybeans", name: "黄豆", category: "豆乳蛋白", state: "熟重", kcal: 173, protein: 16.6, carbs: 9.9, fat: 9.0, fiber: 6.0, defaultGram: 100, aliases: ["黄豆", "黃豆", "大豆"] },
+  { id: "pea_protein_tofu", name: "豌豆蛋白豆腐", category: "豆乳蛋白", state: "可食部", kcal: 118, protein: 14.0, carbs: 4.5, fat: 4.2, fiber: 1.2, defaultGram: 130, aliases: ["豌豆蛋白豆腐", "高蛋白豆腐"] },
+  { id: "purple_cabbage", name: "紫甘蓝", category: "蔬菜", state: "生重", kcal: 31, protein: 1.4, carbs: 7.4, fat: 0.2, fiber: 2.1, defaultGram: 120, aliases: ["紫甘蓝", "紫椰菜"] },
+  { id: "bean_sprouts", name: "豆芽", category: "蔬菜", state: "生重", kcal: 30, protein: 3.0, carbs: 5.9, fat: 0.2, fiber: 1.8, defaultGram: 150, aliases: ["豆芽", "绿豆芽", "芽菜"] },
+  { id: "okra", name: "秋葵", category: "蔬菜", state: "生重", kcal: 33, protein: 1.9, carbs: 7.5, fat: 0.2, fiber: 3.2, defaultGram: 130, aliases: ["秋葵", "okra"] },
+  { id: "lotus_root", name: "莲藕", category: "蔬菜", state: "可食部", kcal: 74, protein: 2.6, carbs: 17.2, fat: 0.1, fiber: 4.9, defaultGram: 150, aliases: ["莲藕", "藕片", "蓮藕"] },
+  { id: "winter_melon", name: "冬瓜", category: "蔬菜", state: "生重", kcal: 13, protein: 0.4, carbs: 3.0, fat: 0.2, fiber: 0.9, defaultGram: 220, aliases: ["冬瓜"] },
+  { id: "radish", name: "白萝卜", category: "蔬菜", state: "生重", kcal: 18, protein: 0.6, carbs: 4.1, fat: 0.1, fiber: 1.6, defaultGram: 180, aliases: ["白萝卜", "萝卜", "蘿蔔"] },
+  { id: "snow_peas", name: "荷兰豆", category: "蔬菜", state: "生重", kcal: 42, protein: 2.8, carbs: 7.6, fat: 0.2, fiber: 2.6, defaultGram: 120, aliases: ["荷兰豆", "甜豆", "snow peas"] },
+  { id: "dragon_fruit", name: "火龙果", category: "水果", state: "可食部", kcal: 57, protein: 1.1, carbs: 13.0, fat: 0.1, fiber: 3.0, defaultGram: 150, aliases: ["火龙果", "火龍果"] },
+  { id: "peach", name: "桃子", category: "水果", state: "可食部", kcal: 39, protein: 0.9, carbs: 9.5, fat: 0.3, fiber: 1.5, defaultGram: 140, aliases: ["桃子", "水蜜桃"] },
+  { id: "watermelon", name: "西瓜", category: "水果", state: "可食部", kcal: 30, protein: 0.6, carbs: 7.6, fat: 0.2, fiber: 0.4, defaultGram: 200, aliases: ["西瓜"] },
+  { id: "flaxseed", name: "亚麻籽", category: "健康脂肪", state: "干重", kcal: 534, protein: 18.3, carbs: 28.9, fat: 42.2, fiber: 27.3, defaultGram: 8, aliases: ["亚麻籽", "亞麻籽", "flaxseed"] },
+  { id: "peanut_butter", name: "花生酱", category: "健康脂肪", state: "无糖", kcal: 588, protein: 25.1, carbs: 20.0, fat: 50.0, fiber: 6.0, defaultGram: 12, aliases: ["花生酱", "花生醬", "peanut butter"] }
 ];
 
 const mealTemplates = {
@@ -415,12 +437,24 @@ const foodAnalysisItems = [
   { id: "apple_meal", name: "苹果", serving: "1个 / 150g", servingGram: 150, kcal: 78, sugar: 15, protein: 0.4, fat: 0.3, sodium: 2, aliases: ["苹果"] },
   { id: "banana_meal", name: "香蕉", serving: "1根 / 100g", servingGram: 100, kcal: 89, sugar: 12, protein: 1.1, fat: 0.3, sodium: 1, aliases: ["香蕉"] },
   { id: "yogurt_unsweetened", name: "无糖酸奶", serving: "1杯 / 180g", servingGram: 180, kcal: 106, sugar: 6, protein: 18, fat: 1, sodium: 65, aliases: ["无糖酸奶", "希腊酸奶"] },
-  { id: "oatmeal_meal", name: "燕麦", serving: "1碗 / 50g干重", servingGram: 50, kcal: 195, sugar: 1, protein: 8.5, fat: 3.5, sodium: 2, aliases: ["燕麦", "燕麦片"] }
+  { id: "oatmeal_meal", name: "燕麦", serving: "1碗 / 50g干重", servingGram: 50, kcal: 195, sugar: 1, protein: 8.5, fat: 3.5, sodium: 2, aliases: ["燕麦", "燕麦片"] },
+  { id: "ramen", name: "拉面", serving: "1碗 / 550g", servingGram: 550, kcal: 620, sugar: 8, protein: 24, fat: 22, sodium: 2100, aliases: ["拉面", "日式拉面", "ramen"] },
+  { id: "hotpot", name: "火锅", serving: "1餐 / 650g", servingGram: 650, kcal: 850, sugar: 6, protein: 45, fat: 55, sodium: 2600, aliases: ["火锅", "麻辣烫", "冒菜"] },
+  { id: "bbq", name: "烧烤", serving: "1餐 / 350g", servingGram: 350, kcal: 780, sugar: 12, protein: 42, fat: 48, sodium: 1800, aliases: ["烧烤", "烤串", "bbq"] },
+  { id: "dumplings", name: "煎饺/锅贴", serving: "8个 / 220g", servingGram: 220, kcal: 520, sugar: 5, protein: 20, fat: 24, sodium: 1050, aliases: ["煎饺", "锅贴", "饺子"] },
+  { id: "sushi", name: "寿司", serving: "8件 / 240g", servingGram: 240, kcal: 360, sugar: 8, protein: 17, fat: 6, sodium: 780, aliases: ["寿司", "sushi"] },
+  { id: "sandwich", name: "三明治", serving: "1份 / 220g", servingGram: 220, kcal: 430, sugar: 7, protein: 24, fat: 15, sodium: 900, aliases: ["三明治", "sandwich"] },
+  { id: "protein_shake", name: "蛋白奶昔", serving: "1杯 / 350ml", servingGram: 350, kcal: 210, sugar: 5, protein: 30, fat: 4, sodium: 220, aliases: ["蛋白奶昔", "蛋白粉", "protein shake"] },
+  { id: "salmon_meal", name: "三文鱼", serving: "1份 / 150g", servingGram: 150, kcal: 312, sugar: 0, protein: 33, fat: 19, sodium: 90, aliases: ["三文鱼", "鲑鱼", "salmon"] },
+  { id: "tofu_meal", name: "豆腐", serving: "1份 / 180g", servingGram: 180, kcal: 259, sugar: 1, protein: 31, fat: 16, sodium: 25, aliases: ["豆腐", "老豆腐", "北豆腐"] },
+  { id: "vegetable_soup", name: "蔬菜汤", serving: "1碗 / 350g", servingGram: 350, kcal: 120, sugar: 7, protein: 5, fat: 3, sodium: 420, aliases: ["蔬菜汤", "清汤", "菜汤"] }
 ];
 
 const foodAnalysisAliasEntries = foodAnalysisItems
   .flatMap((item) => item.aliases.map((alias) => ({ alias, id: item.id })))
   .sort((a, b) => b.alias.length - a.alias.length);
+
+const CALENDAR_STORAGE_KEY = "honglinhealth.calendar.records.v1";
 
 const state = {
   goal: "fatLoss",
@@ -433,7 +467,11 @@ const state = {
   category: "全部",
   search: "",
   drinkCategory: "全部",
-  drinkSearch: ""
+  drinkSearch: "",
+  selectedPanel: "day-menu",
+  selectedDate: localDateString(),
+  visibleMonth: localDateString().slice(0, 7),
+  calendarRecords: loadCalendarRecords()
 };
 
 const ingredientById = Object.fromEntries(ingredients.map((item) => [item.id, item]));
@@ -557,6 +595,21 @@ const expansionBlueprints = {
   }
 };
 
+expansionBlueprints.breakfast.proteins.push(["natto", 85], ["soybeans", 95], ["quail_egg", 70], ["pea_protein_tofu", 120]);
+expansionBlueprints.breakfast.carbs.push(["rye_bread", 70], ["udon", 120], ["rice_noodles", 120]);
+expansionBlueprints.breakfast.vegetables.push(["purple_cabbage", 90], ["bean_sprouts", 120], ["okra", 100], ["snow_peas", 100]);
+expansionBlueprints.breakfast.extras.push(["dragon_fruit", 100], ["peach", 90], ["watermelon", 130], ["flaxseed", 7], ["peanut_butter", 10]);
+
+expansionBlueprints.lunch.proteins.push(["tilapia", 165], ["lean_lamb", 135], ["duck_breast_skinless", 135], ["natto", 90], ["soybeans", 120], ["pea_protein_tofu", 150]);
+expansionBlueprints.lunch.carbs.push(["rye_bread", 90], ["udon", 190], ["rice_noodles", 185], ["lotus_root", 160]);
+expansionBlueprints.lunch.vegetables.push(["purple_cabbage", 140], ["bean_sprouts", 160], ["okra", 140], ["lotus_root", 150], ["winter_melon", 220], ["radish", 170], ["snow_peas", 130]);
+expansionBlueprints.lunch.extras.push(["flaxseed", 6], ["peanut_butter", 10]);
+
+expansionBlueprints.dinner.proteins.push(["tilapia", 155], ["lean_lamb", 120], ["duck_breast_skinless", 125], ["quail_egg", 70], ["natto", 80], ["pea_protein_tofu", 150]);
+expansionBlueprints.dinner.carbs.push(["rye_bread", 60], ["udon", 150], ["rice_noodles", 150], ["lotus_root", 130]);
+expansionBlueprints.dinner.vegetables.push(["purple_cabbage", 130], ["bean_sprouts", 160], ["okra", 130], ["winter_melon", 240], ["radish", 180], ["snow_peas", 130], ["lotus_root", 130]);
+expansionBlueprints.dinner.extras.push(["flaxseed", 5], ["peanut_butter", 8]);
+
 const expansionProfiles = {
   fatLoss: {
     prefix: "清爽",
@@ -659,7 +712,7 @@ function createGoalMealExpansionSeeds() {
       const blueprint = expansionBlueprints[meal];
       const profile = expansionProfiles[goal][meal];
       const prefix = expansionProfiles[goal].prefix;
-      for (let index = 0; index < 20; index += 1) {
+      for (let index = 0; index < 28; index += 1) {
         const offset = index + goalOffsets[goal] + mealOffsets[meal];
         const carb = pickFrom(blueprint.carbs, offset * 5 + 2);
         let protein = pickFrom(blueprint.proteins, offset * 3);
@@ -702,6 +755,40 @@ recipeSeedList.push(...createGoalMealExpansionSeeds());
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => Array.from(document.querySelectorAll(selector));
+
+function localDateString(date = new Date()) {
+  const local = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+  return local.toISOString().slice(0, 10);
+}
+
+function parseLocalDate(value) {
+  const [year, month, day] = value.split("-").map(Number);
+  return new Date(year, month - 1, day);
+}
+
+function addDays(value, days) {
+  const date = typeof value === "string" ? parseLocalDate(value) : new Date(value);
+  date.setDate(date.getDate() + days);
+  return localDateString(date);
+}
+
+function daysBetween(start, end) {
+  const startTime = parseLocalDate(start).setHours(0, 0, 0, 0);
+  const endTime = parseLocalDate(end).setHours(0, 0, 0, 0);
+  return Math.round((endTime - startTime) / 86400000);
+}
+
+function loadCalendarRecords() {
+  try {
+    return JSON.parse(localStorage.getItem(CALENDAR_STORAGE_KEY) || "{}");
+  } catch (error) {
+    return {};
+  }
+}
+
+function saveCalendarRecords() {
+  localStorage.setItem(CALENDAR_STORAGE_KEY, JSON.stringify(state.calendarRecords));
+}
 
 function round(value, digits = 0) {
   const factor = 10 ** digits;
@@ -943,19 +1030,30 @@ function renderGoalSummary() {
     .join("");
 }
 
-function renderRecipeStats() {
+function totalRecipeOptionCount() {
   let legacyCount = 0;
   Object.values(mealTemplates).forEach((goalSet) => {
     Object.values(goalSet).forEach((recipes) => {
       legacyCount += recipes.length;
     });
   });
+  return legacyCount + recipeSeedList.length;
+}
+
+function renderAppCounts() {
+  const recipeCount = totalRecipeOptionCount();
+  $("#heroRecipeCount").textContent = recipeCount;
+  $("#heroIngredientCount").textContent = ingredients.length;
+  $("#navRecipeCount").textContent = `${recipeCount} 道菜谱池`;
+}
+
+function renderRecipeStats() {
   const techniqueCount = new Set(recipeSeedList.map((recipe) => recipe.technique)).size;
   const currentGoalCount = ["breakfast", "lunch", "dinner"].reduce((sum, meal) => sum + recipePool(state.goal, meal).length, 0);
   $("#recipeStats").innerHTML = `
-    <span>当前可随机生成 ${legacyCount + recipeSeedList.length} 道菜</span>
+    <span>当前可随机生成 ${totalRecipeOptionCount()} 道菜</span>
     <span>${goals[state.goal].label}模式可选 ${currentGoalCount} 道</span>
-    <span>本轮新增 180 道目标菜谱</span>
+    <span>扩展菜谱 ${recipeSeedList.length} 道</span>
     <span>早餐 ${recipeSeedList.filter((recipe) => recipe.meal === "breakfast").length} 道扩展菜</span>
     <span>午餐 ${recipeSeedList.filter((recipe) => recipe.meal === "lunch").length} 道扩展菜</span>
     <span>晚餐 ${recipeSeedList.filter((recipe) => recipe.meal === "dinner").length} 道扩展菜</span>
@@ -1515,12 +1613,17 @@ function gradeFromScore(score, cLabel = "高油高糖") {
 
 function healthGrade(totals, matches) {
   let score = 100;
-  if (totals.sugar > 25) score -= Math.min(30, (totals.sugar - 25) * 0.7);
-  if (totals.fat > 45) score -= Math.min(22, (totals.fat - 45) * 0.45);
-  if (totals.sodium > 1500) score -= Math.min(26, (totals.sodium - 1500) / 60);
-  if (totals.kcal > 1500) score -= Math.min(18, (totals.kcal - 1500) / 90);
-  const highProcessedCount = matches.filter((entry) => ["cola", "pepsi", "milk_tea", "fried_chicken", "hamburger", "fries", "pizza", "instant_noodles", "donut", "chips", "cake"].includes(entry.item.id)).length;
-  score -= Math.min(16, highProcessedCount * 4);
+  const foodCount = Math.max(1, matches.reduce((sum, entry) => sum + entry.scale, 0));
+  const proteinRatio = totals.kcal ? (totals.protein * 4) / totals.kcal : 0;
+  if (totals.sugar > 25) score -= Math.min(34, (totals.sugar - 25) * 0.75);
+  if (totals.fat > 45) score -= Math.min(24, (totals.fat - 45) * 0.45);
+  if (totals.sodium > 1500) score -= Math.min(30, (totals.sodium - 1500) / 55);
+  if (totals.kcal > 1500) score -= Math.min(18, (totals.kcal - 1500) / 85);
+  if (proteinRatio < 0.14 && totals.kcal > 500) score -= Math.min(12, (0.14 - proteinRatio) * 80);
+  const highProcessedCount = matches.filter((entry) => ["cola", "pepsi", "milk_tea", "frappuccino", "fried_chicken", "hamburger", "fries", "pizza", "hotdog", "instant_noodles", "ramen", "hotpot", "bbq", "donut", "chips", "cake"].includes(entry.item.id)).length;
+  score -= Math.min(20, (highProcessedCount / foodCount) * 14 + highProcessedCount * 2);
+  const healthyCount = matches.filter((entry) => ["americano", "chicken_breast_meal", "egg_meal", "broccoli_meal", "yogurt_unsweetened", "oatmeal_meal", "protein_shake", "salmon_meal", "tofu_meal", "vegetable_soup"].includes(entry.item.id)).length;
+  score += Math.min(10, healthyCount * 3);
   return gradeFromScore(score, "高油高糖");
 }
 
@@ -1550,6 +1653,7 @@ function renderAnalysisEmpty() {
   $("#analysisTotals").innerHTML = "";
   $("#analysisSugarCubes").innerHTML = "";
   $("#analysisAdvice").innerHTML = "";
+  $("#substitutionPanel").innerHTML = "";
   $("#analysisFoodList").innerHTML = "";
 }
 
@@ -1601,6 +1705,7 @@ function renderFoodAnalysis(result) {
       <div><span>钠余量</span><strong>${round(remaining.sodium)}mg</strong></div>
     </div>
   `;
+  renderSubstitutionRecommendations(matches, totals);
   $("#analysisFoodList").innerHTML = `
     <h3>识别到的食物</h3>
     <div class="analysis-food-items">
@@ -1696,6 +1801,334 @@ function renderDrinks() {
       .join("") || `<div class="empty-state">没有找到饮品，试试换一个品牌或分类。</div>`;
 }
 
+const featurePanelIds = ["ai-assistant", "goals", "day-menu", "weekly-planner", "sugar-radar", "photo-lab", "food-builder", "data-source", "health-calendar"];
+
+function activatePanel(panelId, shouldScroll = true) {
+  if (!featurePanelIds.includes(panelId)) return;
+  state.selectedPanel = panelId;
+  document.body.classList.add("panel-mode");
+  featurePanelIds.forEach((id) => {
+    const panel = document.getElementById(id);
+    if (panel) panel.classList.toggle("is-active", id === panelId);
+  });
+  $$(".side-nav-link").forEach((link) => {
+    const target = link.getAttribute("href")?.replace("#", "");
+    link.classList.toggle("active", target === panelId);
+  });
+  if (shouldScroll) {
+    const panel = document.getElementById(panelId);
+    if (panel) panel.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
+
+const costByCategory = {
+  "全谷主食": 0.55,
+  "主食": 0.42,
+  "肉禽鱼蛋": 1.65,
+  "豆乳蛋白": 0.82,
+  "蔬菜": 0.48,
+  "水果": 0.62,
+  "健康脂肪": 2.4
+};
+
+function estimateItemsCost(items) {
+  return items.reduce((sum, [id, grams]) => {
+    const item = ingredientById[id];
+    const per100 = costByCategory[item.category] || 0.75;
+    return sum + (grams / 100) * per100;
+  }, 0);
+}
+
+function recipeCost(recipe) {
+  return estimateItemsCost(recipe.items);
+}
+
+function chooseRecipeForPlan(goal, meal, avoidTitles, budget, profile, dayIndex) {
+  const pool = recipePool(goal, meal).filter((recipe) => !avoidTitles.includes(recipe.title));
+  const ranked = (pool.length ? pool : recipePool(goal, meal))
+    .map((recipe) => ({ recipe, cost: recipeCost(recipe), nutrition: totalNutrition(recipe.items) }))
+    .sort((a, b) => {
+      if (profile === "student") return a.cost - b.cost || b.nutrition.protein - a.nutrition.protein;
+      if (profile === "training") return b.nutrition.protein - a.nutrition.protein || a.cost - b.cost;
+      if (profile === "light") return a.nutrition.fat - b.nutrition.fat || a.nutrition.kcal - b.nutrition.kcal;
+      return Math.abs(a.cost - budget / 3) - Math.abs(b.cost - budget / 3);
+    });
+  const affordable = ranked.filter((entry) => entry.cost <= budget / 2.4);
+  const choices = affordable.length >= 4 ? affordable : ranked;
+  return choices[dayIndex % Math.min(choices.length, 10)].recipe;
+}
+
+function generateWeeklyPlan() {
+  const profile = $("#weeklyProfile").value;
+  const budget = Math.max(5, Number($("#weeklyBudget").value) || 12);
+  const days = [];
+  const used = [];
+  for (let i = 0; i < 7; i += 1) {
+    const date = addDays(localDateString(), i);
+    const meals = ["breakfast", "lunch", "dinner"].map((meal) => {
+      const recipe = normalizeRecipe(chooseRecipeForPlan(state.goal, meal, used, budget, profile, i), { breakfast: "早餐", lunch: "中餐", dinner: "晚餐" }[meal]);
+      used.push(recipe.title);
+      return recipe;
+    });
+    const total = meals.reduce((sum, meal) => {
+      const n = totalNutrition(meal.items);
+      sum.kcal += n.kcal;
+      sum.protein += n.protein;
+      sum.fiber += n.fiber;
+      sum.cost += recipeCost(meal);
+      return sum;
+    }, { kcal: 0, protein: 0, fiber: 0, cost: 0 });
+    days.push({ date, meals, total });
+  }
+  renderWeeklyPlan(days, profile, budget);
+}
+
+function renderWeeklyPlan(days, profile, budget) {
+  const profileLabels = { student: "学生党预算", training: "训练高蛋白", office: "上班族备餐", light: "清爽控糖" };
+  $("#weeklyPlan").innerHTML = days
+    .map((day, index) => `
+      <article class="week-day-card">
+        <div class="week-day-head">
+          <span>Day ${index + 1}</span>
+          <strong>${day.date}</strong>
+          <small>${profileLabels[profile]} · 约 $${round(day.total.cost, 1)} / 预算 $${budget}</small>
+        </div>
+        <div class="week-meals">
+          ${day.meals.map((meal) => `<div><span>${meal.type}</span><strong>${meal.title}</strong></div>`).join("")}
+        </div>
+        <div class="week-nutrition">
+          <span>${round(day.total.kcal)} kcal</span>
+          <span>蛋白 ${round(day.total.protein)}g</span>
+          <span>纤维 ${round(day.total.fiber)}g</span>
+        </div>
+      </article>
+    `)
+    .join("");
+}
+
+const substituteMap = {
+  cola: ["可乐 → 无糖可乐 / 气泡水 + 柠檬片", "把 39g 糖降到 0g，先保留口感再减甜。"],
+  pepsi: ["百事可乐 → 百事 Zero / 无糖茶", "减少液体糖，避免一天糖分直接爆表。"],
+  sweet_tea: ["冰红茶 → 无糖乌龙茶 / 自泡柠檬茶", "茶味保留，糖分可从 40g+ 降到接近 0g。"],
+  milk_tea: ["奶茶 → 小杯、三分糖、去奶盖、少珍珠", "优先砍糖和脂肪，想喝也可以做低风险版本。"],
+  frappuccino: ["星冰乐 → 冰美式 + 少量牛奶", "甜咖啡通常像甜品，替换后热量差距很大。"],
+  fried_chicken: ["炸鸡 → 烤鸡腿 / 空气炸鸡胸", "保留蛋白质，把油脂和钠降下来。"],
+  hamburger: ["汉堡 → 全麦鸡胸三明治", "把油脂肉饼换成高蛋白低油版本。"],
+  fries: ["薯条 → 烤土豆 / 玉米 / 红薯", "保留主食满足感，减少油炸脂肪。"],
+  instant_noodles: ["泡面 → 荞麦面 + 鸡蛋 + 青菜", "泡面最主要问题是钠，换汤底会更稳。"],
+  cake: ["蛋糕 → 希腊酸奶 + 水果", "甜味保留，但蛋白质和饱腹感更好。"],
+  hotpot: ["火锅 → 清汤锅底 + 瘦肉豆腐 + 少蘸料", "火锅风险在锅底、蘸料和加工丸子。"],
+  bbq: ["烧烤 → 烤鱼/烤鸡胸 + 大量蔬菜", "减少肥肉和重盐酱料。"]
+};
+
+function buildSubstitutionRecommendations(matches, totals) {
+  const cards = [];
+  matches.forEach((entry) => {
+    const item = substituteMap[entry.item.id];
+    if (item) cards.push({ title: item[0], reason: item[1] });
+  });
+  if (totals.sugar > 25 && !cards.some((card) => card.title.includes("无糖"))) {
+    cards.push({ title: "下一杯饮料换成无糖茶或水", reason: "今天糖分已经偏高，先从饮料下手最有效。" });
+  }
+  if (totals.sodium > 1500) cards.push({ title: "晚餐用蒸/煮/炖，少酱料", reason: "钠高时，不建议再叠加泡面、炸物、腌制食品。" });
+  if (totals.protein < 45) cards.push({ title: "补一份高蛋白低油食物", reason: "鸡蛋、鱼虾、鸡胸、豆腐、无糖酸奶都比较稳。" });
+  return cards.slice(0, 5);
+}
+
+function renderSubstitutionRecommendations(matches, totals) {
+  const cards = buildSubstitutionRecommendations(matches, totals);
+  $("#substitutionPanel").innerHTML = `
+    <h3>AI 替代推荐</h3>
+    <div class="substitution-grid">
+      ${cards.map((card) => `<article><strong>${card.title}</strong><p>${card.reason}</p></article>`).join("")}
+    </div>
+  `;
+}
+
+function dayRecord(date = state.selectedDate) {
+  return state.calendarRecords[date] || { meals: "", exercise: "", burned: 0, plan: "轻量恢复", checkedIn: false, score: 0 };
+}
+
+function calculateDayScore(record) {
+  let score = 45;
+  if (record.meals?.trim()) score += 18;
+  if (record.exercise?.trim()) score += 12;
+  score += Math.min(18, Math.round((Number(record.burned) || 0) / 25));
+  if (record.plan) score += 5;
+  if (record.checkedIn) score += 7;
+  return Math.max(0, Math.min(100, score));
+}
+
+function rankFromScore(score) {
+  if (score >= 92) return { name: "王者健康段位", className: "rank-master" };
+  if (score >= 84) return { name: "钻石健康段位", className: "rank-diamond" };
+  if (score >= 74) return { name: "黄金健康段位", className: "rank-gold" };
+  if (score >= 62) return { name: "白银健康段位", className: "rank-silver" };
+  return { name: "青铜健康段位", className: "rank-bronze" };
+}
+
+function averageScoreForLastDays(days) {
+  const today = localDateString();
+  let total = 0;
+  let count = 0;
+  for (let i = 0; i < days; i += 1) {
+    const record = state.calendarRecords[addDays(today, -i)];
+    if (record) {
+      total += calculateDayScore(record);
+      count += 1;
+    }
+  }
+  return count ? round(total / count) : 0;
+}
+
+function computeStreak(today = localDateString()) {
+  let streak = 0;
+  let gap = 0;
+  for (let i = 0; i < 320; i += 1) {
+    const date = addDays(today, -i);
+    const record = state.calendarRecords[date];
+    if (record?.checkedIn) {
+      streak += 1;
+      gap = 0;
+    } else {
+      gap += 1;
+      if (gap > 3) break;
+    }
+  }
+  return Math.min(streak, 300);
+}
+
+function milestoneFor(streak) {
+  if (streak >= 300) return { level: 300, title: "300级年度健康守护者" };
+  if (streak >= 100) return { level: streak, title: `${streak}级长期坚持徽章` };
+  if (streak >= 10) return { level: streak, title: `${Math.floor(streak / 10) * 10}天坚持动画徽章` };
+  if (streak >= 7) return { level: 7, title: "七级徽章" };
+  if (streak >= 3) return { level: 3, title: "三级徽章" };
+  if (streak >= 1) return { level: 1, title: "启程称号" };
+  return { level: 0, title: "等待第一次打卡" };
+}
+
+function renderRankPanel() {
+  const windows = [
+    ["近一天", averageScoreForLastDays(1)],
+    ["近一周", averageScoreForLastDays(7)],
+    ["近一月", averageScoreForLastDays(30)],
+    ["近一季度", averageScoreForLastDays(90)],
+    ["近一年", averageScoreForLastDays(365)]
+  ];
+  $("#rankPanel").innerHTML = windows
+    .map(([label, score]) => {
+      const rank = rankFromScore(score);
+      return `<div class="rank-window ${rank.className}"><span>${label}</span><strong>${rank.name}</strong><em>${score} 分</em></div>`;
+    })
+    .join("");
+}
+
+function renderStreakPanel() {
+  const streak = computeStreak();
+  const milestone = milestoneFor(streak);
+  const next = streak < 3 ? 3 : streak < 7 ? 7 : streak < 100 ? Math.ceil((streak + 1) / 10) * 10 : Math.min(300, Math.ceil((streak + 1) / 50) * 50);
+  $("#streakPanel").innerHTML = `
+    <div class="streak-card">
+      <span>连续打卡</span>
+      <strong>${streak} 天</strong>
+      <p>${milestone.title} · 断签有 3 天补救期</p>
+      <div class="streak-track"><span style="width:${Math.min(100, (streak / next) * 100)}%"></span></div>
+      <small>下一目标：${next} 天</small>
+    </div>
+  `;
+}
+
+function renderCalendarGrid() {
+  const [year, month] = state.visibleMonth.split("-").map(Number);
+  const first = new Date(year, month - 1, 1);
+  const daysInMonth = new Date(year, month, 0).getDate();
+  const startBlank = first.getDay();
+  $("#calendarMonthLabel").textContent = `${year}年 ${month}月`;
+  const cells = [];
+  ["日", "一", "二", "三", "四", "五", "六"].forEach((day) => cells.push(`<div class="calendar-weekday">${day}</div>`));
+  for (let i = 0; i < startBlank; i += 1) cells.push(`<div class="calendar-cell muted"></div>`);
+  for (let day = 1; day <= daysInMonth; day += 1) {
+    const date = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+    const record = state.calendarRecords[date];
+    const score = record ? calculateDayScore(record) : 0;
+    cells.push(`
+      <button class="calendar-cell ${date === state.selectedDate ? "active" : ""} ${record?.checkedIn ? "checked" : ""}" data-date="${date}" type="button">
+        <strong>${day}</strong>
+        <span>${record ? `${score}分` : "未记"}</span>
+      </button>
+    `);
+  }
+  $("#calendarGrid").innerHTML = cells.join("");
+}
+
+function loadDayEditor() {
+  const record = dayRecord();
+  $("#calendarDate").value = state.selectedDate;
+  $("#calendarMeals").value = record.meals || "";
+  $("#calendarExercise").value = record.exercise || "";
+  $("#calendarBurned").value = record.burned || 0;
+  $("#calendarPlan").value = record.plan || "轻量恢复";
+  const score = calculateDayScore(record);
+  $("#dayScorePanel").innerHTML = `<strong>${score} 分</strong><span>${rankFromScore(score).name}</span><p>${record.checkedIn ? "今日已打卡" : "保存记录后可以点击今日打卡。"}</p>`;
+}
+
+function renderCalendarSystem() {
+  renderRankPanel();
+  renderStreakPanel();
+  renderCalendarGrid();
+  loadDayEditor();
+}
+
+function saveDayLog({ checkedIn = false } = {}) {
+  const date = $("#calendarDate").value || state.selectedDate;
+  state.selectedDate = date;
+  state.visibleMonth = date.slice(0, 7);
+  const previous = dayRecord(date);
+  const record = {
+    meals: $("#calendarMeals").value.trim(),
+    exercise: $("#calendarExercise").value.trim(),
+    burned: Math.max(0, Number($("#calendarBurned").value) || 0),
+    plan: $("#calendarPlan").value,
+    checkedIn: checkedIn || previous.checkedIn,
+    updatedAt: new Date().toISOString()
+  };
+  record.score = calculateDayScore(record);
+  state.calendarRecords[date] = record;
+  saveCalendarRecords();
+  renderCalendarSystem();
+}
+
+function triggerBadgeAnimation(message) {
+  const box = $("#badgeAnimation");
+  box.innerHTML = `<div class="badge-burst"><strong>${message}</strong><span>继续保持，健康指数正在升级</span><i></i><i></i><i></i><i></i></div>`;
+  window.setTimeout(() => {
+    box.innerHTML = "";
+  }, 3600);
+}
+
+function checkInToday() {
+  state.selectedDate = localDateString();
+  $("#calendarDate").value = state.selectedDate;
+  saveDayLog({ checkedIn: true });
+  const streak = computeStreak();
+  const milestone = milestoneFor(streak);
+  triggerBadgeAnimation(`${streak} 天打卡成功 · ${milestone.title}`);
+}
+
+function handlePhotoUpload(event) {
+  const file = event.target.files?.[0];
+  if (!file) return;
+  const url = URL.createObjectURL(file);
+  $("#photoPreview").innerHTML = `
+    <img src="${url}" alt="上传的餐食照片预览" />
+    <div>
+      <strong>照片已记录</strong>
+      <p>当前版本先做移动端上传预览。接入视觉识别后，会自动识别食物、估算克数、热量、糖分和蛋白质。</p>
+    </div>
+  `;
+}
+
 function setupSideNav() {
   const menuToggle = $("#menuToggle");
   const sideNav = $("#sideNav");
@@ -1729,7 +2162,14 @@ function setupSideNav() {
   });
   navBackdrop.addEventListener("click", closeSideNav);
   $$(".side-nav-link").forEach((link) => {
-    link.addEventListener("click", closeSideNav);
+    link.addEventListener("click", (event) => {
+      const target = link.getAttribute("href")?.replace("#", "");
+      if (featurePanelIds.includes(target)) {
+        event.preventDefault();
+        activatePanel(target);
+      }
+      closeSideNav();
+    });
   });
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") closeSideNav();
@@ -1738,6 +2178,15 @@ function setupSideNav() {
 
 function attachEvents() {
   setupSideNav();
+  $$('a[href^="#"]').forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const target = link.getAttribute("href")?.replace("#", "");
+      if (featurePanelIds.includes(target)) {
+        event.preventDefault();
+        activatePanel(target);
+      }
+    });
+  });
   $$(".goal-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       const keepAnalysisRank = state.rankMode === "analysis";
@@ -1823,9 +2272,36 @@ function attachEvents() {
     renderAnalysisEmpty();
     renderTopHealthRankFromMeals();
   });
+  $("#generateWeekBtn").addEventListener("click", generateWeeklyPlan);
+  $("#photoInput").addEventListener("change", handlePhotoUpload);
+  $("#prevMonthBtn").addEventListener("click", () => {
+    const [year, month] = state.visibleMonth.split("-").map(Number);
+    state.visibleMonth = localDateString(new Date(year, month - 2, 1)).slice(0, 7);
+    renderCalendarSystem();
+  });
+  $("#nextMonthBtn").addEventListener("click", () => {
+    const [year, month] = state.visibleMonth.split("-").map(Number);
+    state.visibleMonth = localDateString(new Date(year, month, 1)).slice(0, 7);
+    renderCalendarSystem();
+  });
+  $("#calendarGrid").addEventListener("click", (event) => {
+    const btn = event.target.closest("[data-date]");
+    if (!btn) return;
+    state.selectedDate = btn.dataset.date;
+    state.visibleMonth = state.selectedDate.slice(0, 7);
+    renderCalendarSystem();
+  });
+  $("#calendarDate").addEventListener("change", (event) => {
+    state.selectedDate = event.target.value || localDateString();
+    state.visibleMonth = state.selectedDate.slice(0, 7);
+    renderCalendarSystem();
+  });
+  $("#saveDayLogBtn").addEventListener("click", () => saveDayLog());
+  $("#checkInBtn").addEventListener("click", checkInToday);
 }
 
 function init() {
+  renderAppCounts();
   renderGoalSummary();
   renderIngredientStats();
   renderRecipeStats();
@@ -1836,7 +2312,10 @@ function init() {
   renderDrinks();
   renderAnalysisEmpty();
   generateDay();
+  generateWeeklyPlan();
+  renderCalendarSystem();
   attachEvents();
+  activatePanel(state.selectedPanel, false);
 }
 
 init();

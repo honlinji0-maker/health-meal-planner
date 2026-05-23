@@ -13,7 +13,7 @@ const mime = {
 
 http
   .createServer((req, res) => {
-    const url = new URL(req.url, "http://127.0.0.1");
+    const url = new URL(req.url, `http://${host}:${port}`);
     let pathname = decodeURIComponent(url.pathname);
     if (pathname === "/") pathname = "/index.html";
 

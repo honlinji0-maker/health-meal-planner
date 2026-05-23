@@ -481,6 +481,8 @@ const openFoodFactsFields = "code,product_name,brands,nutriments,serving_quantit
 
 const CALENDAR_STORAGE_KEY = "honglinhealth.calendar.records.v1";
 const WELCOME_STORAGE_KEY = "honglinhealth.welcome.seen.v1";
+const PROFILE_STARTED_STORAGE_KEY = "honglinhealth.profile.startedAt.v1";
+const PROFILE_CHALLENGES_STORAGE_KEY = "honglinhealth.profile.challenges.v1";
 
 const state = {
   goal: "fatLoss",
@@ -498,6 +500,8 @@ const state = {
   photoVisionText: "",
   photoFileName: "",
   photoOnlineProducts: [],
+  profileStartedAt: loadProfileStartedAt(),
+  activeChallenges: loadActiveChallenges(),
   selectedDate: localDateString(),
   visibleMonth: localDateString().slice(0, 7),
   calendarRecords: loadCalendarRecords()
@@ -923,6 +927,34 @@ function loadCalendarRecords() {
     return JSON.parse(localStorage.getItem(CALENDAR_STORAGE_KEY) || "{}");
   } catch (error) {
     return {};
+  }
+}
+
+function loadProfileStartedAt() {
+  const fallback = new Date().toISOString();
+  try {
+    const saved = localStorage.getItem(PROFILE_STARTED_STORAGE_KEY);
+    if (saved) return saved;
+    localStorage.setItem(PROFILE_STARTED_STORAGE_KEY, fallback);
+  } catch (error) {
+    return fallback;
+  }
+  return fallback;
+}
+
+function loadActiveChallenges() {
+  try {
+    return JSON.parse(localStorage.getItem(PROFILE_CHALLENGES_STORAGE_KEY) || "[]");
+  } catch (error) {
+    return [];
+  }
+}
+
+function saveActiveChallenges() {
+  try {
+    localStorage.setItem(PROFILE_CHALLENGES_STORAGE_KEY, JSON.stringify(state.activeChallenges));
+  } catch (error) {
+    // Ignore private-mode storage failures.
   }
 }
 
@@ -2052,7 +2084,7 @@ function renderDrinks() {
       .join("") || `<div class="empty-state">没有找到饮品，试试换一个品牌或分类。</div>`;
 }
 
-const featurePanelIds = ["ai-assistant", "goals", "day-menu", "weekly-planner", "sugar-radar", "photo-lab", "food-builder", "data-source", "health-calendar"];
+const featurePanelIds = ["profile-page", "ai-assistant", "goals", "day-menu", "weekly-planner", "sugar-radar", "photo-lab", "food-builder", "data-source", "health-calendar"];
 let pageTransitionTimer;
 
 function runPageTransition() {
@@ -2346,6 +2378,316 @@ function milestoneFor(streak) {
   return { level: 0, title: "等待第一次打卡" };
 }
 
+const profileLevelFrames = [
+  { level: 1, name: "木质起步框", className: "profile-frame-lv1" },
+  { level: 2, name: "铜质行动框", className: "profile-frame-lv2" },
+  { level: 3, name: "银质自律框", className: "profile-frame-lv3" },
+  { level: 4, name: "金质稳定框", className: "profile-frame-lv4" },
+  { level: 5, name: "翡翠流光框", className: "profile-frame-lv5 flow-frame" },
+  { level: 6, name: "蓝宝石训练框", className: "profile-frame-lv6 flow-frame" },
+  { level: 7, name: "紫晶挑战框", className: "profile-frame-lv7 flow-frame" },
+  { level: 8, name: "钻石健康框", className: "profile-frame-lv8 flow-frame" },
+  { level: 9, name: "星耀节律框", className: "profile-frame-lv9 flow-frame" },
+  { level: 10, name: "传奇守护框", className: "profile-frame-lv10 flow-frame" },
+  { level: 11, name: "晨光专注框", className: "profile-frame-lv11 flow-frame" },
+  { level: 12, name: "海盐恢复框", className: "profile-frame-lv12 flow-frame" },
+  { level: 13, name: "青柠控糖框", className: "profile-frame-lv13 flow-frame" },
+  { level: 14, name: "月白记录框", className: "profile-frame-lv14 flow-frame" },
+  { level: 15, name: "极光运动框", className: "profile-frame-lv15 flow-frame" },
+  { level: 16, name: "森林守护框", className: "profile-frame-lv16 flow-frame" },
+  { level: 17, name: "星河挑战框", className: "profile-frame-lv17 flow-frame" },
+  { level: 18, name: "曜石自律框", className: "profile-frame-lv18 flow-frame" },
+  { level: 19, name: "光穹大师框", className: "profile-frame-lv19 flow-frame" },
+  { level: 20, name: "Health OS 传说框", className: "profile-frame-lv20 flow-frame" }
+];
+
+const profileXpThresholds = [0, 80, 180, 340, 560, 840, 1180, 1580, 2050, 2590, 3200, 3890, 4660, 5520, 6470, 7520, 8680, 9950, 11340, 12860];
+
+const profileChallengeDefinitions = [
+  { id: "no_sugary_drinks", title: "7 天不喝含糖饮料", desc: "无糖可乐可以，普通可乐、奶茶、冰红茶不可以。", stat: "noSugaryDrink7" },
+  { id: "no_drinks", title: "7 天不喝饮料", desc: "只记录水、无糖茶或黑咖啡，饮料类都不出现。", stat: "noDrink7" },
+  { id: "plant_week", title: "7 天植物饮食", desc: "用豆腐、豆类、谷物和蔬菜完成一周饮食。", stat: "plantWeek7" },
+  { id: "no_fried", title: "7 天不吃炸物", desc: "远离炸鸡、薯条、油炸小吃。", stat: "noFried7" },
+  { id: "exercise_30", title: "7 天运动 30 分钟", desc: "每天记录 30 分钟以上运动。", stat: "exercise30Seven" },
+  { id: "three_meals", title: "7 天三餐完整", desc: "每天早餐、中餐、晚餐都记录。", stat: "threeMealsSeven" }
+];
+
+const profileBadgeDefinitions = [
+  { id: "streak_1", group: "坚持奖章", shape: "circle", tone: "sprout", mark: "1", title: "启程称号", desc: "完成第 1 天打卡。", earned: (ctx) => ctx.maxStreak >= 1 },
+  { id: "streak_3", group: "坚持奖章", shape: "circle", tone: "bronze", mark: "3", title: "三级徽章", desc: "最高坚持达到 3 天。", earned: (ctx) => ctx.maxStreak >= 3 },
+  { id: "streak_7", group: "坚持奖章", shape: "circle", tone: "silver", mark: "7", title: "七级徽章", desc: "最高坚持达到 7 天。", earned: (ctx) => ctx.maxStreak >= 7 },
+  { id: "streak_30", group: "坚持奖章", shape: "circle", tone: "gold", mark: "30", title: "月度坚持", desc: "最高坚持达到 30 天。", earned: (ctx) => ctx.maxStreak >= 30 },
+  { id: "streak_100", group: "坚持奖章", shape: "circle", tone: "diamond", mark: "100", title: "长期主义", desc: "最高坚持达到 100 天。", earned: (ctx) => ctx.maxStreak >= 100 },
+  { id: "streak_300", group: "坚持奖章", shape: "circle", tone: "legend", mark: "300", title: "年度守护者", desc: "最高坚持达到 300 天。", earned: (ctx) => ctx.maxStreak >= 300 },
+
+  { id: "challenge_sugar", group: "挑战奖章", shape: "shield", tone: "water", mark: "0", title: "控糖护盾", desc: "连续 7 天不喝含糖饮料。", earned: (ctx) => ctx.challengeStats.noSugaryDrink7 },
+  { id: "challenge_drink", group: "挑战奖章", shape: "shield", tone: "sapphire", mark: "H2O", title: "清水周", desc: "连续 7 天不喝饮料。", earned: (ctx) => ctx.challengeStats.noDrink7 },
+  { id: "challenge_plant", group: "挑战奖章", shape: "leaf", tone: "emerald", mark: "V", title: "植物周", desc: "连续 7 天植物饮食。", earned: (ctx) => ctx.challengeStats.plantWeek7 },
+  { id: "challenge_fried", group: "挑战奖章", shape: "shield", tone: "amber", mark: "NF", title: "远离炸物", desc: "连续 7 天不吃炸物。", earned: (ctx) => ctx.challengeStats.noFried7 },
+
+  { id: "nutrition_three", group: "营养奖章", shape: "star", tone: "gold", mark: "3", title: "三餐完整", desc: "连续 7 天记录三餐。", earned: (ctx) => ctx.challengeStats.threeMealsSeven },
+  { id: "nutrition_sugar", group: "营养奖章", shape: "star", tone: "water", mark: "S", title: "控糖优秀", desc: "最近 7 天糖分记录整体很稳。", earned: (ctx) => ctx.challengeStats.lowSugarSeven },
+  { id: "nutrition_protein", group: "营养奖章", shape: "star", tone: "sapphire", mark: "P", title: "蛋白补给", desc: "最近 7 天多数记录有足量蛋白。", earned: (ctx) => ctx.challengeStats.proteinSeven },
+  { id: "nutrition_rank", group: "营养奖章", shape: "star", tone: "amethyst", mark: "A", title: "稳定餐盘", desc: "近 7 天平均健康分达到 80 分。", earned: (ctx) => ctx.weekScore >= 80 },
+
+  { id: "sport_30", group: "运动奖章", shape: "bolt", tone: "sapphire", mark: "30", title: "每日动起来", desc: "连续 7 天运动 30 分钟。", earned: (ctx) => ctx.challengeStats.exercise30Seven },
+  { id: "sport_burn", group: "运动奖章", shape: "bolt", tone: "gold", mark: "2K", title: "燃烧 2000", desc: "近 7 天运动消耗达到 2000 kcal。", earned: (ctx) => ctx.weekBurned >= 2000 },
+  { id: "sport_strength", group: "运动奖章", shape: "bolt", tone: "bronze", mark: "STR", title: "力量训练者", desc: "近 7 天至少 3 次无氧训练。", earned: (ctx) => ctx.anaerobicDays >= 3 },
+  { id: "sport_balance", group: "运动奖章", shape: "bolt", tone: "emerald", mark: "MIX", title: "综合体能", desc: "近 7 天同时记录有氧和无氧。", earned: (ctx) => ctx.hasAerobic && ctx.hasAnaerobic },
+
+  { id: "habit_plan", group: "生活习惯奖章", shape: "hex", tone: "emerald", mark: "P", title: "计划执行", desc: "连续 7 天填写运动计划。", earned: (ctx) => ctx.challengeStats.planSeven },
+  { id: "habit_calendar", group: "生活习惯奖章", shape: "hex", tone: "silver", mark: "LOG", title: "记录者", desc: "累计记录 14 天健康日历。", earned: (ctx) => ctx.loggedDays >= 14 },
+  { id: "habit_recovery", group: "生活习惯奖章", shape: "hex", tone: "water", mark: "R", title: "恢复意识", desc: "近 7 天至少 1 天安排恢复拉伸。", earned: (ctx) => ctx.recoveryDays >= 1 },
+  { id: "habit_master", group: "生活习惯奖章", shape: "hex", tone: "legend", mark: "OS", title: "Health OS 用户", desc: "累计使用满 50 天。", earned: (ctx) => ctx.usage.totalDays >= 50 }
+];
+
+function profileUsageInfo() {
+  const started = Date.parse(state.profileStartedAt) || Date.now();
+  const diff = Math.max(0, Date.now() - started);
+  const totalMinutes = Math.floor(diff / 60000);
+  const totalDays = Math.floor(totalMinutes / 1440);
+  const hours = Math.floor((totalMinutes % 1440) / 60);
+  const minutes = totalMinutes % 60;
+  return {
+    totalDays,
+    hours,
+    minutes
+  };
+}
+
+function profileLevelFromXp(xp) {
+  let level = 1;
+  for (let i = 0; i < profileXpThresholds.length; i += 1) {
+    if (xp >= profileXpThresholds[i]) level = i + 1;
+  }
+  level = Math.min(20, level);
+  const current = profileXpThresholds[level - 1] || 0;
+  const next = profileXpThresholds[level] || current;
+  const progressPercent = level >= 20 ? 100 : Math.min(100, ((xp - current) / Math.max(1, next - current)) * 100);
+  return {
+    level,
+    frame: profileLevelFrames[level - 1] || profileLevelFrames[0],
+    current,
+    next,
+    progressPercent,
+    remaining: Math.max(0, next - xp)
+  };
+}
+
+function profileExperienceInfo(ctx, badges) {
+  const earnedBadges = badges.filter((badge) => badge.earnedNow).length;
+  const completedChallenges = profileChallengeDefinitions.filter((challenge) => ctx.challengeStats[challenge.stat]).length;
+  const xp =
+    ctx.totalCheckIns * 35 +
+    ctx.loggedDays * 18 +
+    ctx.maxStreak * 10 +
+    earnedBadges * 70 +
+    completedChallenges * 120 +
+    Math.round(ctx.weekScore * 1.5) +
+    Math.min(320, Math.round(ctx.weekBurned / 8)) +
+    ctx.usage.totalDays * 5;
+  return { xp: Math.max(0, Math.round(xp)), earnedBadges, completedChallenges, ...profileLevelFromXp(xp) };
+}
+
+function computeMaxStreak() {
+  const dates = Object.keys(state.calendarRecords)
+    .filter((date) => state.calendarRecords[date]?.checkedIn)
+    .sort();
+  let max = 0;
+  let current = 0;
+  let previous = null;
+  dates.forEach((date) => {
+    if (!previous) {
+      current = 1;
+    } else {
+      const gapDays = daysBetween(previous, date) - 1;
+      current = gapDays <= 3 ? current + 1 : 1;
+    }
+    max = Math.max(max, current);
+    previous = date;
+  });
+  return Math.min(max, 300);
+}
+
+function recentDayRecords(days = 7) {
+  const today = localDateString();
+  return Array.from({ length: days }, (_, index) => {
+    const date = addDays(today, -index);
+    return { date, record: state.calendarRecords[date] ? dayRecord(date) : null };
+  });
+}
+
+function recordMealText(record) {
+  return [record?.breakfast, record?.lunch, record?.dinner, record?.meals].filter(Boolean).join(" ");
+}
+
+function hasMealRecord(record) {
+  return Boolean(recordMealText(record).trim());
+}
+
+function hasThreeMeals(record) {
+  return Boolean(record?.breakfast?.trim() && record?.lunch?.trim() && record?.dinner?.trim());
+}
+
+function hasSugaryDrink(text) {
+  const beverage = /(可乐|奶茶|冰红茶|柠檬茶|汽水|饮料|果汁|星冰乐|红牛|能量饮料|运动饮料|雪碧|芬达|monster|gatorade|frappuccino|cola|soda|juice|bubble tea)/i;
+  const zero = /(无糖|零糖|0糖|零卡|零度|zero|diet|sugar free|黑咖啡|美式|无糖茶)/i;
+  return beverage.test(text) && !zero.test(text);
+}
+
+function hasAnyDrink(text) {
+  return /(可乐|奶茶|冰红茶|柠檬茶|汽水|饮料|果汁|星冰乐|红牛|能量饮料|运动饮料|雪碧|芬达|元气森林|无糖可乐|zero|cola|soda|juice|bubble tea)/i.test(text);
+}
+
+function hasAnimalFood(text) {
+  return /(鸡|鸭|牛|猪|羊|鱼|虾|蟹|贝|蛋|肉|火鸡|三文鱼|鳕鱼|金枪鱼|牛排|汉堡|炸鸡|pork|beef|chicken|fish|egg|salmon|shrimp)/i.test(text);
+}
+
+function hasFriedFood(text) {
+  return /(炸|薯条|炸鸡|油条|天妇罗|fried|fries)/i.test(text);
+}
+
+function recordAnalysisTotals(record) {
+  const text = recordMealText(record);
+  if (!text) return null;
+  const parsed = parseFoodLog(text);
+  if (!parsed.matches.length) return null;
+  return analysisTotals(parsed.matches);
+}
+
+function everyRecentDay(days, predicate) {
+  const records = recentDayRecords(days);
+  return records.every(({ record }) => record && predicate(record));
+}
+
+function profileChallengeStats() {
+  const records = recentDayRecords(7);
+  const loggedRecords = records.filter(({ record }) => record && hasMealRecord(record));
+  const totals = loggedRecords.map(({ record }) => recordAnalysisTotals(record)).filter(Boolean);
+  const weekBurned = records.reduce((sum, { record }) => sum + (record ? Number(record.burned) || estimateExerciseBurned(record.exerciseType, record.exerciseMinutes) : 0), 0);
+  const anaerobicDays = records.filter(({ record }) => record?.exerciseType === "anaerobic" || record?.exerciseType === "mixed").length;
+  const aerobicDays = records.filter(({ record }) => record?.exerciseType === "aerobic" || record?.exerciseType === "mixed").length;
+  const recoveryDays = records.filter(({ record }) => record?.exerciseType === "recovery").length;
+  return {
+    noSugaryDrink7: everyRecentDay(7, (record) => hasMealRecord(record) && !hasSugaryDrink(recordMealText(record))),
+    noDrink7: everyRecentDay(7, (record) => hasMealRecord(record) && !hasAnyDrink(recordMealText(record))),
+    plantWeek7: everyRecentDay(7, (record) => hasMealRecord(record) && !hasAnimalFood(recordMealText(record))),
+    noFried7: everyRecentDay(7, (record) => hasMealRecord(record) && !hasFriedFood(recordMealText(record))),
+    exercise30Seven: everyRecentDay(7, (record) => Number(record.exerciseMinutes) >= 30),
+    threeMealsSeven: everyRecentDay(7, hasThreeMeals),
+    planSeven: everyRecentDay(7, (record) => Boolean(record.plan)),
+    lowSugarSeven: totals.length >= 5 && totals.every((total) => total.sugar <= 25),
+    proteinSeven: totals.length >= 5 && totals.filter((total) => total.protein >= 45).length >= 5,
+    weekBurned,
+    anaerobicDays,
+    aerobicDays,
+    recoveryDays,
+    hasAerobic: aerobicDays > 0,
+    hasAnaerobic: anaerobicDays > 0
+  };
+}
+
+function profileContext() {
+  const usage = profileUsageInfo();
+  const challengeStats = profileChallengeStats();
+  const loggedDays = Object.values(state.calendarRecords).filter((record) => hasMealRecord(record)).length;
+  const currentStreak = computeStreak();
+  const maxStreak = Math.max(currentStreak, computeMaxStreak());
+  return {
+    usage,
+    currentStreak,
+    maxStreak,
+    totalCheckIns: Object.values(state.calendarRecords).filter((record) => record.checkedIn).length,
+    loggedDays,
+    weekScore: averageScoreForLastDays(7),
+    weekBurned: challengeStats.weekBurned,
+    anaerobicDays: challengeStats.anaerobicDays,
+    recoveryDays: challengeStats.recoveryDays,
+    hasAerobic: challengeStats.hasAerobic,
+    hasAnaerobic: challengeStats.hasAnaerobic,
+    challengeStats
+  };
+}
+
+function renderProfilePage() {
+  if (!$("#profileHero")) return;
+  const ctx = profileContext();
+  const badges = profileBadgeDefinitions.map((badge) => ({ ...badge, earnedNow: badge.earned(ctx) }));
+  const experience = profileExperienceInfo(ctx, badges);
+  $("#profileHero").innerHTML = `
+    <div class="profile-level-card ${experience.frame.className}">
+      <span>账号等级</span>
+      <strong>Lv.${experience.level}</strong>
+      <p>${experience.frame.name} · ${experience.level >= 20 ? "已达到当前等级上限" : `还差 ${experience.remaining} XP 升级`}</p>
+      <div class="profile-level-track"><span style="width:${experience.progressPercent}%"></span></div>
+      <small>${experience.xp} XP / ${experience.level >= 20 ? "MAX" : `${experience.next} XP`}</small>
+    </div>
+    <div class="profile-identity">
+      <div class="profile-avatar-frame ${experience.frame.className}"><span>H</span></div>
+      <div>
+        <span>当前账号</span>
+        <strong>Health OS 本地账号</strong>
+        <p>经验来自每日打卡、健康记录、挑战完成、奖章收集和使用时长。5 级后等级框会开启清爽流光效果。</p>
+      </div>
+    </div>
+  `;
+  $("#profileStats").innerHTML = [
+    ["最高坚持", `${ctx.maxStreak} 天`, "含 3 天补救期规则"],
+    ["当前连续", `${ctx.currentStreak} 天`, "今日打卡后会刷新"],
+    ["使用时长", `${ctx.usage.totalDays}天 ${ctx.usage.hours}小时 ${ctx.usage.minutes}分`, "从本账号首次打开开始"],
+    ["已获奖章", `${experience.earnedBadges} / ${badges.length}`, "每枚奖章 +70 XP"],
+    ["挑战完成", `${experience.completedChallenges} / ${profileChallengeDefinitions.length}`, "每个挑战 +120 XP"],
+    ["总经验值", `${experience.xp} XP`, "轻松升到 3 级，20 级为当前上限"]
+  ]
+    .map(([label, value, note]) => `<article><span>${label}</span><strong>${value}</strong><p>${note}</p></article>`)
+    .join("");
+
+  const groups = [...new Set(profileBadgeDefinitions.map((badge) => badge.group))];
+  $("#profileBadges").innerHTML = groups
+    .map((group) => {
+      const groupBadges = badges.filter((badge) => badge.group === group);
+      return `
+        <div class="badge-group">
+          <h4>${group}</h4>
+          <div class="badge-grid">
+            ${groupBadges
+              .map(
+                (badge) => `
+                  <article class="profile-badge ${badge.earnedNow ? "earned" : "locked"}">
+                    <i class="profile-badge-icon ${badge.shape} ${badge.tone}"><span>${badge.mark}</span></i>
+                    <strong>${badge.title}</strong>
+                    <p>${badge.desc}</p>
+                  </article>
+                `
+              )
+              .join("")}
+          </div>
+        </div>
+      `;
+    })
+    .join("");
+
+  $("#profileChallenges").innerHTML = profileChallengeDefinitions
+    .map((challenge) => {
+      const active = state.activeChallenges.includes(challenge.id);
+      const completed = Boolean(ctx.challengeStats[challenge.stat]);
+      return `
+        <article class="challenge-card ${active ? "active" : ""} ${completed ? "completed" : ""}">
+          <span>${completed ? "已完成" : active ? "进行中" : "可选择"}</span>
+          <strong>${challenge.title}</strong>
+          <p>${challenge.desc}</p>
+          <button class="ghost-btn" type="button" data-profile-challenge="${challenge.id}">${active ? "取消挑战" : "开始挑战"}</button>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+function startProfileClock() {
+  renderProfilePage();
+  window.setInterval(renderProfilePage, 60000);
+}
+
 function renderRankPanel() {
   const windows = [
     ["近一天", averageScoreForLastDays(1)],
@@ -2433,6 +2775,7 @@ function renderCalendarSystem() {
   renderStreakPanel();
   renderCalendarGrid();
   loadDayEditor();
+  renderProfilePage();
 }
 
 function saveDayLog({ checkedIn = false } = {}) {
@@ -2941,6 +3284,18 @@ function attachEvents() {
     const product = state.photoOnlineProducts[Number(btn.dataset.onlineProductIndex)];
     if (product) analyzeOnlineProduct(product, "联网营养识别");
   });
+  $("#profileChallenges").addEventListener("click", (event) => {
+    const btn = event.target.closest("[data-profile-challenge]");
+    if (!btn) return;
+    const id = btn.dataset.profileChallenge;
+    if (state.activeChallenges.includes(id)) {
+      state.activeChallenges = state.activeChallenges.filter((item) => item !== id);
+    } else {
+      state.activeChallenges.push(id);
+    }
+    saveActiveChallenges();
+    renderProfilePage();
+  });
   $("#prevMonthBtn").addEventListener("click", () => {
     const [year, month] = state.visibleMonth.split("-").map(Number);
     state.visibleMonth = localDateString(new Date(year, month - 2, 1)).slice(0, 7);
@@ -2986,6 +3341,7 @@ function init() {
   generateDay();
   generateWeeklyPlan();
   renderCalendarSystem();
+  startProfileClock();
   attachEvents();
   activatePanel(state.selectedPanel, false);
 }

@@ -52,6 +52,10 @@
         <span class="nav-icon icon-medal"></span>
         <div><strong>健康奖章</strong><small>S+ 到 D 细分等级</small></div>
       </a>
+      <a href="#profile-page" class="side-nav-link">
+        <span class="nav-icon icon-profile"></span>
+        <div><strong>我的页面</strong><small>等级 / 奖章 / 挑战</small></div>
+      </a>
       <a href="#goals" class="side-nav-link">
         <span class="nav-icon icon-target"></span>
         <div><strong>营养目标</strong><small>减脂 / 增肌 / 塑型</small></div>
@@ -131,6 +135,32 @@
       </section>
 
       <main>
+        <section id="profile-page" class="profile-section" aria-labelledby="profile-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">My Health Profile</p>
+              <h2 id="profile-title">我的页面 <button class="info-dot" type="button" aria-label="我的页面说明" data-tip="记录最高坚持天数、累计使用时长、账号等级、奖章墙和挑战完成情况。当前版本先按本设备账号记录，后续可接入真实登录。">!</button></h2>
+            </div>
+            <span class="status-chip">XP 驱动 · 最高 20 级</span>
+          </div>
+          <div id="profileHero" class="profile-hero"></div>
+          <div id="profileStats" class="profile-stats"></div>
+          <div class="profile-subsection">
+            <div class="profile-subhead">
+              <h3>奖章墙</h3>
+              <p>坚持、挑战、营养、运动和生活习惯都会变成可收集成就。</p>
+            </div>
+            <div id="profileBadges" class="profile-badges"></div>
+          </div>
+          <div class="profile-subsection">
+            <div class="profile-subhead">
+              <h3>挑战中心</h3>
+              <p>选择一个挑战，接下来 7 天的日历记录会自动判定是否完成。</p>
+            </div>
+            <div id="profileChallenges" class="profile-challenges"></div>
+          </div>
+        </section>
+
         <section id="ai-assistant" class="ai-section" aria-labelledby="ai-title">
           <div class="section-heading">
             <div>

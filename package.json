@@ -1,8 +1,8 @@
 {
   "name": "health-meal-planner",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
-  "description": "健康三餐、AI 营养分析、健康日历、打卡段位、高糖饮品可视化和食材搭配网页。",
+  "description": "Modern Health Dashboard Template with Tailwind CDN, healthy meals, AI nutrition analysis, calendar, badges and sugar visualization.",
   "scripts": {
     "start": "node preview-server.js",
     "check": "node --check app.js && node --check preview-server.js"

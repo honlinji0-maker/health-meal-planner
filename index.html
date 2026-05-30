@@ -10,9 +10,32 @@
     <meta name="theme-color" content="#2f7d57" />
     <title>每日健康配餐台</title>
     <link rel="preconnect" href="https://images.unsplash.com" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              health: {
+                50: "#f3faf5",
+                100: "#def2e5",
+                500: "#2f7d57",
+                600: "#246946",
+                900: "#173525"
+              },
+              mint: "#d9f99d",
+              skyhealth: "#e8f7fb"
+            },
+            boxShadow: {
+              health: "0 24px 70px rgba(23, 53, 37, 0.12)"
+            }
+          }
+        }
+      };
+    </script>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
+  <body class="health-dashboard-template min-h-screen bg-health-50 text-slate-950 antialiased selection:bg-mint selection:text-health-900">
     <a class="skip-link" href="#day-menu">跳到主要内容</a>
     <div id="welcomeScreen" class="welcome-screen" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
       <div class="welcome-card">
@@ -89,8 +112,8 @@
         <div><strong>数据口径</strong><small>估算依据与说明</small></div>
       </a>
     </nav>
-    <div class="app-shell">
-      <header class="topbar">
+    <div class="app-shell mx-auto w-full">
+      <header class="topbar dashboard-hero">
         <div class="hero-copy">
           <p class="eyebrow">Health-first meal composer</p>
           <h1>每日健康配餐台</h1>
@@ -119,7 +142,7 @@
         </figure>
       </header>
 
-      <section id="health-rank" class="health-rank-banner" aria-labelledby="health-rank-title">
+      <section id="health-rank" class="health-rank-banner dashboard-card" aria-labelledby="health-rank-title">
         <div class="rank-medal-wrap">
           <div id="topGradeMedal" class="rank-medal rank-a">
             <span>AI</span>
@@ -135,7 +158,7 @@
       </section>
 
       <main>
-        <section id="profile-page" class="profile-section" aria-labelledby="profile-title">
+        <section id="profile-page" class="profile-section dashboard-card" aria-labelledby="profile-title">
           <div class="section-heading">
             <div>
               <p class="eyebrow">My Health Profile</p>
@@ -161,7 +184,7 @@
           </div>
         </section>
 
-        <section id="ai-assistant" class="ai-section" aria-labelledby="ai-title">
+        <section id="ai-assistant" class="ai-section dashboard-card" aria-labelledby="ai-title">
           <div class="section-heading">
             <div>
               <p class="eyebrow">AI 健康助手</p>
@@ -199,7 +222,7 @@
           </div>
         </section>
 
-        <section id="goals" class="goal-band" aria-labelledby="goal-title">
+        <section id="goals" class="goal-band dashboard-card" aria-labelledby="goal-title">
           <div class="section-heading">
             <div>
               <p class="eyebrow">目标板块</p>
@@ -214,7 +237,7 @@
           <div id="goalSummary" class="goal-summary"></div>
         </section>
 
-        <section id="day-menu" class="planner-grid">
+        <section id="day-menu" class="planner-grid dashboard-card dashboard-card-split">
           <div class="planner-main" aria-labelledby="plan-title">
             <div class="section-heading compact">
               <div>
@@ -241,7 +264,7 @@
           </aside>
         </section>
 
-        <section id="weekly-planner" class="weekly-section" aria-labelledby="weekly-title">
+        <section id="weekly-planner" class="weekly-section dashboard-card" aria-labelledby="weekly-title">
           <div class="section-heading">
             <div>
               <p class="eyebrow">AI 一周菜谱</p>
@@ -266,7 +289,7 @@
           <div id="weeklyPlan" class="weekly-plan"></div>
         </section>
 
-        <section id="health-calendar" class="calendar-section" aria-labelledby="calendar-title">
+        <section id="health-calendar" class="calendar-section dashboard-card" aria-labelledby="calendar-title">
           <div class="section-heading">
             <div>
               <p class="eyebrow">健康日历</p>
@@ -337,7 +360,7 @@
           <div id="badgeAnimation" class="badge-animation" aria-live="polite"></div>
         </section>
 
-        <section id="sugar-radar" class="drink-section" aria-labelledby="drink-title">
+        <section id="sugar-radar" class="drink-section dashboard-card" aria-labelledby="drink-title">
           <div class="section-heading">
             <div>
               <p class="eyebrow">高糖饮品雷达</p>
@@ -353,7 +376,7 @@
           <div id="drinkCards" class="drink-grid"></div>
         </section>
 
-        <section id="photo-lab" class="photo-section" aria-labelledby="photo-title">
+        <section id="photo-lab" class="photo-section dashboard-card" aria-labelledby="photo-title">
           <div class="section-heading">
             <div>
               <p class="eyebrow">AI 视觉识别</p>
@@ -396,7 +419,7 @@
           </div>
         </section>
 
-        <section id="food-builder" class="builder-section" aria-labelledby="builder-title">
+        <section id="food-builder" class="builder-section dashboard-card" aria-labelledby="builder-title">
           <div class="section-heading">
             <div>
               <p class="eyebrow">自选食材</p>
@@ -440,7 +463,7 @@
           <div id="customDish" class="custom-dish" aria-live="polite"></div>
         </section>
 
-        <section id="data-source" class="source-section" aria-labelledby="source-title">
+        <section id="data-source" class="source-section dashboard-card" aria-labelledby="source-title">
           <div>
             <p class="eyebrow">数据依据</p>
             <h2 id="source-title">计算口径 <button class="info-dot" type="button" aria-label="计算口径说明" data-tip="食材营养以每 100g 可食部估算；品牌差异、熟重/生重、调味和烹饪损耗都会影响实际结果。">!</button></h2>

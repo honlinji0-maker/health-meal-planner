@@ -4212,6 +4212,296 @@ body.panel-mode main > section.is-active .daily-editor {
   }
 }
 
+/* Modern Health Dashboard Template layer */
+body.health-dashboard-template {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 8% 6%, rgba(217, 249, 157, 0.32), transparent 26rem),
+    radial-gradient(circle at 92% 12%, rgba(186, 230, 253, 0.34), transparent 24rem),
+    linear-gradient(180deg, #f7fbf8 0%, #eef7f1 48%, #f8fafc 100%);
+  color: #0f1f18;
+}
+
+.health-dashboard-template::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(23, 53, 37, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(23, 53, 37, 0.035) 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.8), transparent 72%);
+}
+
+.health-dashboard-template .app-shell {
+  max-width: 1420px;
+  padding: 30px clamp(18px, 4vw, 48px) 110px;
+}
+
+.dashboard-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.04fr) minmax(320px, 0.74fr);
+  gap: 24px;
+  align-items: stretch;
+  min-height: 420px;
+  overflow: hidden;
+  border: 1px solid rgba(203, 224, 211, 0.9);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(246, 253, 248, 0.82)),
+    linear-gradient(135deg, rgba(47, 125, 87, 0.12), rgba(14, 165, 233, 0.1));
+  box-shadow:
+    0 30px 90px rgba(23, 53, 37, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.dashboard-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(110deg, transparent 0 44%, rgba(255, 255, 255, 0.56) 50%, transparent 58%),
+    radial-gradient(circle at 22% 18%, rgba(217, 249, 157, 0.32), transparent 18rem);
+  opacity: 0.62;
+}
+
+.dashboard-hero .hero-copy {
+  position: relative;
+  z-index: 1;
+  align-self: center;
+  max-width: 680px;
+  padding: 34px 0 34px 4px;
+}
+
+.dashboard-hero .eyebrow,
+.dashboard-card .eyebrow,
+.side-nav-head small {
+  color: #2f7d57;
+  letter-spacing: 0.08em;
+}
+
+.dashboard-hero h1 {
+  max-width: 720px;
+  color: #10251a;
+  font-size: 3.7rem;
+  line-height: 1.02;
+  letter-spacing: 0;
+}
+
+.dashboard-hero .lead {
+  max-width: 520px;
+  color: #52635a;
+  font-size: 1.08rem;
+}
+
+.dashboard-hero .hero-actions {
+  gap: 10px;
+}
+
+.dashboard-hero .hero-primary,
+.dashboard-hero .hero-secondary,
+.primary-btn,
+.ghost-btn,
+.welcome-btn {
+  border-radius: 8px;
+}
+
+.dashboard-hero .hero-primary {
+  background: linear-gradient(135deg, #246946, #2f7d57);
+  box-shadow: 0 16px 34px rgba(47, 125, 87, 0.22);
+}
+
+.dashboard-hero .hero-secondary {
+  border: 1px solid rgba(47, 125, 87, 0.18);
+  background: rgba(255, 255, 255, 0.72);
+  color: #246946;
+}
+
+.dashboard-hero .hero-metrics {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  max-width: 650px;
+}
+
+.dashboard-hero .hero-metrics div {
+  border: 1px solid rgba(203, 224, 211, 0.82);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.74);
+  box-shadow: 0 16px 34px rgba(23, 53, 37, 0.08);
+}
+
+.dashboard-hero .food-photo {
+  position: relative;
+  z-index: 1;
+  min-height: 360px;
+  border: 1px solid rgba(255, 255, 255, 0.68);
+  border-radius: 8px;
+  box-shadow: 0 24px 60px rgba(23, 53, 37, 0.18);
+}
+
+.dashboard-hero .food-photo img {
+  filter: saturate(1.03) contrast(1.02);
+}
+
+.dashboard-hero .food-photo figcaption {
+  right: 16px;
+  bottom: 16px;
+  left: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.78);
+  color: #10251a;
+  backdrop-filter: blur(18px);
+}
+
+.dashboard-card {
+  border: 1px solid rgba(203, 224, 211, 0.9);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(249, 253, 250, 0.9));
+  box-shadow:
+    0 22px 58px rgba(23, 53, 37, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.88);
+}
+
+.dashboard-card-split {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.98), rgba(244, 251, 246, 0.88));
+}
+
+.health-dashboard-template .section-heading {
+  border-bottom: 1px solid rgba(203, 224, 211, 0.66);
+}
+
+.health-dashboard-template .section-heading h2 {
+  color: #10251a;
+  font-size: 1.65rem;
+  line-height: 1.16;
+}
+
+.health-dashboard-template .status-chip,
+.health-dashboard-template .goal-btn,
+.health-dashboard-template .filter-btn,
+.health-dashboard-template .drink-filter-btn,
+.health-dashboard-template .day-pill,
+.health-dashboard-template .photo-mode-btn {
+  border-radius: 8px;
+}
+
+.health-dashboard-template .meal-card,
+.health-dashboard-template .week-day-card,
+.health-dashboard-template .drink-card,
+.health-dashboard-template .ingredient-card,
+.health-dashboard-template .rank-window,
+.health-dashboard-template .analysis-level,
+.health-dashboard-template .daily-editor,
+.health-dashboard-template .profile-level-card,
+.health-dashboard-template .profile-identity,
+.health-dashboard-template .profile-stats article,
+.health-dashboard-template .badge-group,
+.health-dashboard-template .challenge-card,
+.health-dashboard-template .source-card,
+.health-dashboard-template .calendar-cell,
+.health-dashboard-template .upload-box {
+  border-color: rgba(203, 224, 211, 0.88);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 14px 34px rgba(23, 53, 37, 0.07);
+}
+
+.health-dashboard-template .side-nav {
+  border: 1px solid rgba(203, 224, 211, 0.92);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 26px 70px rgba(23, 53, 37, 0.18);
+  backdrop-filter: blur(24px);
+}
+
+.health-dashboard-template .side-nav-link {
+  border-radius: 8px;
+}
+
+.health-dashboard-template .side-nav-link.active,
+.health-dashboard-template .side-nav-link:hover {
+  border-color: rgba(47, 125, 87, 0.24);
+  background: linear-gradient(135deg, #f3faf5, #ecfdf5);
+}
+
+.health-dashboard-template .nav-icon {
+  background: linear-gradient(135deg, #def2e5, #f6fff8);
+}
+
+.health-dashboard-template .menu-toggle {
+  border: 1px solid rgba(203, 224, 211, 0.9);
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 16px 38px rgba(23, 53, 37, 0.12);
+  backdrop-filter: blur(16px);
+}
+
+.health-dashboard-template input,
+.health-dashboard-template textarea,
+.health-dashboard-template select {
+  border-color: rgba(203, 224, 211, 0.95);
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+.health-dashboard-template input:focus,
+.health-dashboard-template textarea:focus,
+.health-dashboard-template select:focus {
+  border-color: rgba(47, 125, 87, 0.5);
+  box-shadow:
+    0 0 0 4px rgba(47, 125, 87, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  outline: none;
+}
+
+@media (max-width: 1120px) {
+  .dashboard-hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .dashboard-hero .hero-copy {
+    padding: 10px 0 0;
+  }
+
+  .dashboard-hero .food-photo {
+    min-height: 280px;
+  }
+}
+
+@media (max-width: 760px) {
+  .health-dashboard-template .app-shell {
+    padding: 22px 14px 82px;
+  }
+
+  .dashboard-hero {
+    gap: 18px;
+    padding: 20px;
+  }
+
+  .dashboard-hero h1 {
+    font-size: 2.42rem;
+  }
+
+  .dashboard-hero .hero-actions,
+  .dashboard-hero .hero-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-hero .food-photo {
+    min-height: 240px;
+  }
+
+  .health-dashboard-template .section-heading h2 {
+    font-size: 1.35rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
